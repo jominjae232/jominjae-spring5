@@ -3,7 +3,7 @@ package kr.or.test;
 public class HelloWorld {
 
 	public static void main(String[] args) {
-		// classpath > exclude test code unchecked 해야지만, 오류안남.
+		// 자바앱은 진입 메서드가 필수.
 		System.out.println("헬로 자바");
 	}
 
