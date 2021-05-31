@@ -1,4 +1,6 @@
 #### 20210531(월) 작업.
+- 테이블구성: 필드(컬럼, 열)=테이블의 멤버변수(자바VO클래스의 멤버변수)
+- 필드구성: PrimayKey(주키, 기본키, 고유키)
 - RDBMS : RelationDataBaseManagementSystem(관계형데이타베이스관리시스템)
 - 오라클: 테이블스페이스(TableSpace) = 스키마(Scheme:Mysql) = 데이터베이스(DB-MS-SQL)
 - 지난주 금요일날, 오라클 웹용 관리프로그램에서 XE라는 테이블스페이스를 XE사용자로 추가했음.
