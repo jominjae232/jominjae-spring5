@@ -57,8 +57,18 @@ public class DataSourceTest {
 		//PageVO만들기전 SQL쿼리로 가상으로 페이지를 한번 구현해 보면서, 필요한 변수 만들어야 합니다.
 		//PageVO 객체를 만들어서 가상으로 초기값을 입력합니다.(아래)
 		PageVO pageVO = new PageVO();
-		pageVO.setTotalCount(100);//테스트하려고, 100명을 입력합니다.
-		List<MemberVO> listMember = memberService.selectMember();
+		
+		pageVO.setPage(1);//기본값으로 1페이지를 입력합니다.
+		pageVO.setPerPageNum(10);//UI하단사용 페이지 개수
+		pageVO.setQueryPerPageNum(10);//쿼리사용 페이지당 개수
+		pageVO.setTotalCount(memberService.countMember());//테스트하려고, 100명을 입력합니다.
+		pageVO.setSearch_keyword("admin");
+		//위 setTotalCount위치가 다른 설정보다 상단이면, 에러발생 왜냐하면, calcPage()가 실행되는데, 실행시 위 3가지 변수 값이 저장되 있어야지 계산 메서드가 정상 작동되기 때문입니다.
+		//위 토탈카운트 변수 값은 startPage, endPage계산에 필수입니다.
+		//매퍼쿼리<-DAO클래스<-Service클래스<-JUnit(나중엔 컨드롤러에서 작업) 이제 역순으로 작업진행
+		//더 진행하기 전에 현재 pageVO객체에는 어떤 값이 들어 있는지 확인하고 사용하겠습니다.(아래)
+		logger.info("디버그: "+pageVO.toString());
+		List<MemberVO> listMember = memberService.selectMember(pageVO);
 		listMember.toString();
 	}
 	
