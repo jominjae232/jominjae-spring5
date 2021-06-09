@@ -10,8 +10,11 @@
 - VS code에서 만든 UI를 이클립스에서 JSP로 변경 한 후 스프링웹프로젝트를 진행합니다.
 
 #### 20210609(수) 작업.
+- 프로젝트를 진행: 보유기술 70%(솔루션있는업체) + 신기술 30%(개발사도 모릅니다.) - 9할 성공.
 - PageVO.java 클래스 생성 마무리.
 - JUnit에서 위 작업한 내용을 기준으로 selectMember() 테스트 진행.
+- <![CDATA[ 쿼리]]> : 태그 안쪽에 부등호를 상용하기 위해서 문자열 변환 태그를 사용.
+- 쿼리에서 변수와 문자열과의 연결할 때는 +(자바)X, ,(X), ||(O)
 - JUnit에서 회원관리 나머지 CRUD 테스트 진행.
 
 #### 20210608(화) 작업.
@@ -20,24 +23,24 @@
 - 검색에 사용되는 변수(쿼리변수만): 검색어(search_keyword), 검색조건(search_type)
 
 ```
---SQL쿼리 페이징을 구현해서 변수로 삼을 것을 정의
+--SQL쿼리 페이징을 구현해서 변수로 삼을것을 정의
 --PageVO의 멤버변수로 사용예정
-SELECT TableB.*FROM
+SELECT TableB.* FROM
 (
     SELECT ROWNUM AS RNUM, TableA.* FROM
     (
-        select * from tbl_member
+        SELECT * FROM tbl_member
         WHERE user_id LIKE '%admin%'
         OR user_name LIKE '%사용자8%'
         ORDER BY reg_date DESC
-    ) TableA WHERE ROWNUM <= (1*5)+ 5   --(page*b)+ b
-) TableB WHERE TableB.RNUM > 1*5        --page*b
---현재쿼리에서 필요한 변수는 2개
---현재 페이지수의 변수 a*b == page*b == queryStartNO
---1페이지당 보여줄 갯수의 변수 b: queryPerPageNum
+    ) TableA WHERE ROWNUM <= (1*5)+ 5 --  (page*b)+b
+) TableB WHERE TableB.RNUM > 1*5      --  (page*b)
+--페이징쿼리에서 필요한 변수는 2개
+--현재페이지수의 변수 page*b == queryStartNo
+--1페이당보여줄 개수의변수 b == queryPerPageNum
 --PageVO에서 필요한 추가변수: page
---UI하단의 페이지 선택번호 출력 할 때 사용하는 변수 (아래)
--- perPageNum 변수받아서 startPage, endPage를 구해서
+--UI하단의 페이지 선택번호 출력할때 사용하는 변수(아래) 
+-- perPageNum 변수받아서 startPage, endPage 를 구해서
 -- 하단의 페이지 선택 번호를 출력
 ```
 
