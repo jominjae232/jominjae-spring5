@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.edu.service.IF_MemberService;
 import com.edu.vo.MemberVO;
@@ -30,6 +31,19 @@ public class AdminController {
 	//이 메서드는 회원목록을 출력하는 jsp와 매핑이 됩니다.
 	@Inject
 	private IF_MemberService memberService;
+	
+	@RequestMapping(value ="/admin/member/member_view", method=RequestMethod.GET)
+	public String viewMemberForm(Model model, @RequestParam("user_id")String user_id, @ModelAttribute("pageVO")PageVO pageVO) throws Exception{
+		/**
+		 * 이 메서드는 리스트 페이지에서 상세보기로 이동할 때 보여주는 1개의 레코드 값을 보여주는 구현을 합니다.
+		 * JUnit에서 테스트 했던 readMember 방식을 이용
+		 * 다른점은 JUnit에서는 식별자 ID를 강제로 지정했지만, 이 메서드에서는 @RequsetParam인터페이스를 이용해서 식별자 값을 받음.
+		 */
+		
+		//위 출력값 memberVO 1개의 레코드를 model을 이용해서 member_view.jsp로 보냅니다.(아래)
+		model.addAttribute("memberVO", memberService.readMember(user_id));
+		return "admin/member/member_view";//상대경로 폴더 위치
+	}
 	
 	@RequestMapping(value="/admin/member/member_list", method=RequestMethod.GET)
 	public String selectMember(@ModelAttribute("pageVO")PageVO pageVO,Model model) throws Exception {
