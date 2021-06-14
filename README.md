@@ -31,14 +31,27 @@
 ---------------------------
 - 헤로쿠 클라우드에 배포할때,메퍼폴더의 mysql폴더내의 쿼리에 now()를 date_add(now(3), interval 9 HOUR) 변경예정.(이유는 DB서버 타임존 미국이기 때문에)
 
+#### 20210614(월) 작업.
+- 수업 전 관리자 회원관리 view화면구현 마무리.
+- multipart(첨부파일기능) 라는 폼태그 전송방식을 추가 -> commons.fileupload외부 모듈 필수(pom.xml에서 의존성을 추가합니다.)
+- 위 외부 모듈을 스프링 빈으로 등록합니다.(servlet-context.xml 하단에 추가)
+- CRUD에서 multipart를 사용한다면, 리졸브(resolve-해석기) 스프링빈이 필요
+
+```
+<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</beans:bean>
+```
+- 나머지 관리자 회원관리 CRUD 화면 JSP구현 update, delete , insert
+- [공지]06-17 목요일(4교시) UI 디자인 시험 있습니다.(화면기획서XLS제작, 화면설계서PPT제출용)
+- 관리자 게시판 생성관리 CRUD 정방향 방식으로 JSP구현.
+
 #### 20210611(금) 작업.
-수업전 관리자단 회원관리 페이징처리에서 컨트롤러와 calcPage()메서드의 관계 간단하게 확인하겠습니다.
-JSTL: Java Standard Tag Library 자바표준태그모듈로서 JSP에서 자바를 사용하는 표준.
+- 수업전 관리자단 회원관리 페이징처리에서 컨트롤러와 calcPage()메서드의 관계 간단하게 확인하겠습니다.
+- JSTL: Java Standard Tag Library 자바표준태그모듈로서 JSP에서 자바를 사용하는 표준.
 - taglib uri(유니폼 리소스 ID-의미가 있는 고유값=식별값) > url(링크경로)
 - prefix(접두어), 태그 별칭 사용 예, <c 시작
 - 관리자단 회원목록 처리 마무리(1.페이징및 검색기능구현).
 - model을 이용해서 결과를 JSP로 구현.(2.JSP화면은 표준언어인 JSTL로 구현)
-- 나머지 관리자 회원관리 CRUD 화면 JSP처리. insert(X), view>update, insert
 
 #### 20210610(목) 작업.
 - 컨트롤러를 이용해서 관리자단 회원관리화면 JSP 만들기 진행 시작.
