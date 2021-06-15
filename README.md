@@ -32,8 +32,11 @@
 - 헤로쿠 클라우드에 배포할때,메퍼폴더의 mysql폴더내의 쿼리에 now()를 date_add(now(3), interval 9 HOUR) 변경예정.(이유는 DB서버 타임존 미국이기 때문에)
 
 #### 20210615(화) 작업.
-- 관리자단 회원관리 수정 암호 수정 잘 되는지 확인예정.
-- 회원관리 CRUD 화면 JSP구현 update, delete , insert
+- 관리자단 회원관리 수정 암호 수정 잘 되는지 확인.
+- 회원관리 CRUD 화면 JSP구현 update(OK), delete(OK) , insert(예정)
+- [공지]06-17 목요일(4교시) UI 디자인 시험 있습니다.(화면기획서XLS제작, 화면설계서PPT제출용)
+- 관리자단 게시판 생성관리 CRUD 처리.(3.AOP기능구현).
+- 관리자단 게시물관리 CRUD 처리(4.파일업로드구현,5.트랜잭션구현).
 
 
 #### 20210614(월) 작업.
@@ -46,12 +49,9 @@
 <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</beans:bean>
 ```
-- 데이터 변수를 전송할 때 GET(기본값)으로 전송받으면, 타 도메인에서도 GET으로 접근이 가능합니다.
-- 쉽게 말하면, 다른 도메인(서버)에서 GET은 검색만 가능, 입력/수정/삭제 불가능
-- 단, 데이터변수를 POST(숨김)으로 전송 받으면, 타 도메인에서는 접근이 불가능합니다.
-- 쉽게 말하면, 같은 도메인(서버)에서만 POST로는 입력/수정/삭제가 가능합니다.
-- [공지]06-17 목요일(4교시) UI 디자인 시험 있습니다.(화면기획서XLS제작, 화면설계서PPT제출용)
-- 관리자 게시판 생성관리 CRUD 정방향 방식으로 JSP구현.
+- GET: Insert (외부 사이트 입력폼에서도 입력 가능) - 쿼리스트링으로 데이터전송 url?key=value&key2=value2
+- POST:Insert (외부 사이트에서 입력 불가능, 같은 사이트의 입력폼에서 가능.) form의 입력태그(히든 스트링)로 데이터 전송
+- 나머지 관리자 회원관리 CRUD 화면 JSP구현 update(OK), delete(OK)
 
 #### 20210611(금) 작업.
 - 수업전 관리자단 회원관리 페이징처리에서 컨트롤러와 calcPage()메서드의 관계 간단하게 확인하겠습니다.

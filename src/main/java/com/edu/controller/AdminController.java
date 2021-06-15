@@ -33,13 +33,25 @@ public class AdminController {
 	@Inject
 	private IF_MemberService memberService;
 	
+	//아래 경로는 회원 신규 등록폼을 호출하는 URL쿼리스트링으로 보낸 것을 받을때는 GET방식으로 받습니다.
+	@RequestMapping(value="/admin/member/member_insert_from", method=RequestMethod.GET)
+	public String insertMemberForm(@ModelAttribute("pageVO")PageVO pageVO) throws Exception {
+		
+		return "admin/member/member_insert";//.jsp는 생략
+	}
+	//아래 경로는 회원 신규 등록을 처리하는 서비스를 호출하는 URL
+	@RequestMapping(value="/admin/member/member_insert", method=RequestMethod.POST)
+	public String insertMember() throws Exception {
+		
+		return null;
+	}
 	//아래 경로는 수정처리를 호출=DB를 변경처리함.
 	@RequestMapping(value="/admin/member/member_update", method=RequestMethod.POST)
 	public String updateMember(MemberVO memberVO, PageVO pageVO) throws Exception {
 		//update 서비스만 처리하면 끝
-		//업데이트 쿼리 서비스 호출하기 전, 스프링 시큐리티 암호화 적용합니다.
+		//업데이트 쿼리서비스 호출하기 전 스프링시큐리티 암호화 적용합니다.
 		String rawPassword = memberVO.getUser_pw();
-		if(rawPassword.isEmpty()) {//수정폼에서 암호 입력값이 비어있지 않을때만 아래 로직 실행
+		if(!rawPassword.isEmpty()) {//수정폼에서 암호 입력값이 비어있지 않을때만 아래로직실행.
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			String encPassword = passwordEncoder.encode(rawPassword);
 			memberVO.setUser_pw(encPassword);
@@ -49,7 +61,7 @@ public class AdminController {
 		String queryString = "user_id="+memberVO.getUser_id()+"&page="+pageVO.getPage()+"&search_type="+pageVO.getSearch_type()+"&search_keyword="+pageVO.getSearch_keyword();
 		return "redirect:/admin/member/member_update_form?"+queryString;
 	}
-	//아래 경로는 수정폼을 호출=화면에 출력만=렌더링만
+	//아래 경로는 수정폼을 호출=화면에 출력만=렌더링만 
 	@RequestMapping(value="/admin/member/member_update_form", method=RequestMethod.GET)
 	public String updateMemberForm(MemberVO memberVO, Model model,@ModelAttribute("pageVO")PageVO pageVO) throws Exception {
 		//이 메서드는 수정폼에 pageVO, memberVO 2개의 데이터객체를 jsp로 보냅니다.
