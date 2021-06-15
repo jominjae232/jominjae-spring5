@@ -15,7 +15,7 @@ import com.edu.vo.MemberVO;
 
 /**
  * 이 클래스는 이 프로젝트에서 공통으로 사용하는 유틸리티기능을 모아놓은 클래스. 
- * @author 조민재
+ * @author 김일국
  * 컨트롤러 기능 @Controller(jsp와 바인딩이 필요할때는 필수 애노테이션 입니다.)
  * 콤포턴트 @Component는 MVC가 아닌 기능들을 모아놓은 스프링빈 명시, 여기서는 jsp와 바인딩이 필요해서 사용않함 
  */
@@ -33,12 +33,12 @@ public class CommonUtil {
 		//중복아이디를 체크로지(아래)
 		String memberCnt = "1";//중복ID가 있을때, 기본값 1
 		if(!user_id.isEmpty()) {//!주의 user_id가 공백이 아니라면,
-		MemberVO memberVO = memberService.readMember(user_id);
-		logger.info("디버그: " + memberVO);//공백을 전송해도 null이기때문에 조건이 조건 추가 필요
-		if(memberVO == null) {//중복아이디가 존재하지 않으면 {}안을 실행
-			memberCnt = "0";
+			MemberVO memberVO = memberService.readMember(user_id);
+			logger.info("디버그: " + memberVO);//user_id를 공백을 전송해도 null이기때문에 조건 추가필요
+			if(memberVO == null) {//중복아이디가 존재하지 않으면 {}안을 실행
+				memberCnt = "0";
+			}
 		}
-	}
 		return memberCnt;//0.jsp 이렇게 작동하지 않습니다. 이유는 @ResponseBody때문이고, RestAPI는 값만 반환
 	}
 }
