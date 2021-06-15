@@ -39,7 +39,7 @@
             <div class="card-body">
               
               <div class="form-group">
-              <!-- 신규 등록시 ID중복 체크 필수: 버튼 이벤트 -->
+                <!-- 신규등록시 ID중복체크필수:버튼이벤트 -->
                 <label for="user_id">사용자ID
                 <button id="btn_id_check" type="button" class="btn btn-sm btn-secondary">중복체크</button>
                 </label>
@@ -65,14 +65,14 @@
                 <label for="enabled">로그인여부</label>
                 <select name="enabled" id="enabled" class="form-control">
                   <option value="1" selected>허용</option>
-                  <option value="0" >금지</option>
+                  <option value="0">금지</option>
                 </select>
               </div>
               <div class="form-group">
                 <label for="levels">권한부여</label>
                 <select name="levels" id="levels" class="form-control">
                   <option value="ROLE_USER" selected>사용자</option>
-                  <option value="ROLE_ADMIN" }>관리자</option>
+                  <option value="ROLE_ADMIN">관리자</option>
                 </select>
               </div>
             </div>
@@ -104,18 +104,18 @@ $(document).ready(function(){
 		var user_id = $("#user_id").val();
 		//alert(user_id);
 		$.ajax({
-			type:"get",//입력, 수정, 삭제가 아니면 get방식
-			url:"/id_check?user_id="+user_id,//RestAPI서버(스프링클래스로 제작)의 URL
+			type:"get",//입력,수정,삭제 가 아니면 get방식
+			url:"/id_check?user_id="+user_id,//RestAPI서버(스프링클래스로제작)의 URL
 			dataType:"text",//결과값(0,1)을 받을때, 데이터형을 text, json, xml중 선택
 			success:function(result){
 				alert(result);//디버그용
-				if(result==0){//중복ID가 없다면 정상 진행
-					$("#btn_insert").attr("disabled", false);//등록버튼 활성화
+				if(result==0){//중복ID가 없다면 정상진행
+					$("#btn_insert").attr("disabled",false);//등록버튼 활성화
 					alert("사용가능한 ID입니다.");
 				}
-				if(result==1){//중복ID가 있다면 진행 중지
-					$("#btn_insert").attr("disabled", turn);//등록버튼 비활성화
-					alert("중복ID가 존재합니다. 다시 입력해 주세요!");
+				if(result==1){//중복ID가 있다면 진행중지
+					$("#btn_insert").attr("disabled",true);//등록버튼 비활성화
+					alert("옳바르지 않거나, 중복ID가 존재합니다. 다시 입력해 주세요!");
 				}
 			},
 			error:function(){
@@ -124,6 +124,7 @@ $(document).ready(function(){
 			
 		});
 	});
+	
 	var form_write = $("form[name='form_write']");
 	
 	$("#btn_list").click(function(){
