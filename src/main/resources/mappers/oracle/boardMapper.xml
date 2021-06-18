@@ -25,11 +25,15 @@ insert into tbl_attach
 )
 values
 (
-	#{save_file_name},#{real_file.name},sysdate,
-	select bno from (
+	#{save_file_name},#{real_file.name},sysdate,#{bno}
+	
+)
+<!-- 
+bno 변수값으로 받는 로직을 추가했기 때문에 아래 주석
+select bno from (
 		select bno from tbl_board order by bno desc
 	) where rownum = 1
-)
+ -->
 </insert>
 <!-- 위 bno는 게시물 등록시 첨부파일 쿼리는 bno 메개변수로 보낼 수가 없는 상태임. -->
 <!-- 게시물 CRUD 쿼리생성 -->
@@ -54,7 +58,9 @@ where bno = #{bno}
 <select id="readBoard" resultType="com.edu.vo.BoardVO">
 select * from tbl_board where bno = #{bno}
 </select>
-<!-- bno필드변수가 자동증가가 되는 기능이 필요 seq.nextVal -->
+<!-- bno필드변수가 자동증가가 되는 기능이 필요 seq.nextVal
+parameterType 출력처리.
+ -->
 <insert id="insertBoard" parameterType="com.edu.vo.BoardVO">
 	<selectKey keyProperty="bno" resultType="int" order="BEFORE">
 	select seq_bno.nextval from dual

@@ -18,7 +18,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.edu.service.IF_BoardService;
 import com.edu.service.IF_MemberService;
+import com.edu.vo.BoardVO;
 import com.edu.vo.MemberVO;
 import com.edu.vo.PageVO;
 
@@ -42,7 +44,18 @@ public class DataSourceTest {
 	//Inject 자바8부터 지원, 그럼, 이전 자바7에서 @Autowired 로 객체를 만들었슴
 	@Inject //MemberService서비스를 주입받아서 객체를 사용합니다.(아래)
 	private IF_MemberService memberService;
+	@Inject
+	private IF_BoardService boardService;
 	
+	@Test
+	public void insertBoard() throws Exception {
+		BoardVO boardVO = new BoardVO();
+		boardVO.setTitle("인서트후 반환값테스트");
+		boardVO.setContent("J유닛입력테스트");
+		boardVO.setWriter("admin");
+		boardVO.setBoard_type("gallery");
+		boardService.insertBoard(boardVO);
+	}
 	@Test
 	public void updateMember() throws Exception {
 		//이 메서드는 회원 정보수정(1개 레코드). jsp에서 사용예정.
@@ -53,10 +66,10 @@ public class DataSourceTest {
 		memberVO.setPoint(100);
 		memberVO.setUser_name("최고관리자");
 		memberVO.setUser_pw("");//입력하지 않으면, 업데이트에서 제외
-		//메서드내 적용된 객체 변수 생성
+		//메서드내 적용된 객체변수 생성
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		//스프링5시큐리티 암호화 적용로직(아래)
-		if((memberVO.getUser_pw()).length() > 0) {
+		if((memberVO.getUser_pw()).length() > 0) {			
 			String userPwEncoder = passwordEncoder.encode(memberVO.getUser_pw());
 			memberVO.setUser_pw(userPwEncoder);//암호화된 해시데이터가 memberVO객체 임시저장됨.
 		}
@@ -75,7 +88,7 @@ public class DataSourceTest {
 		for(MemberVO memberOne:listMember) { //listMember객체 비워질때까지 반복
 			//혹시 여러번 실행시켜서 중복암호화 시킬수 있으므로 제외조건을 추가(아래)
 			String rawPassword = memberOne.getUser_pw();
-			if(rawPassword.length() < 10) {//원시암호데이터 길이가 50보다 작을때만 암호화로직 진입
+			if(rawPassword.length() < 50) {//원시암호데이터 길이가 50보다 작을때만 암호화로직 진입
 				//memberOne객체(1개의레코드)의 암호를 뽑아서 시큐리티로 암호화 시킨 후 onePwEncoder변수입력
 				String onePwEncoder = passwordEncoder.encode(rawPassword);
 				memberOne.setUser_pw(onePwEncoder);
