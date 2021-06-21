@@ -46,6 +46,7 @@
 - root-context와 servlet-context설정 파일에 트랜잭션과 파일 업로드 설정 처리
 - @Controller 클래스 추가(파일 업로드/다운로드 구현) -> jsp화면처리
 - @Service 트랜잭션 기능 추가.
+- Aspect기능 마무리
 - AOP기능 중 Aspect기능의 설정은 servlet-context.xml에 위치필수
 
 #### 20210618(금) 작업.
