@@ -32,11 +32,24 @@
 - 헤로쿠 클라우드에 배포할때,메퍼폴더의 mysql폴더내의 쿼리에 now()를 date_add(now(3), interval 9 HOUR) 변경예정.(이유는 DB서버 타임존 미국이기 때문에)
 
 #### 20210622(화) 작업.
+```
+pageVO 객체가 발생하지 않는 곳에는 에러가 발생됩니다. 에러발생시 수정하실 부분은 아래와 같습니다.
+[수정전-아래]
+- pageVO.setBoard_type(board_type);//검색목표달성:...
+[수정후-아래]
+if(pageVO != null) {
+   pageVO.setBoard_type(board_type);//검색목표달성:...
+}
+```
 - 정방향으로 개발 시작 VO제작 -> 매퍼쿼리제작 ->DAO클래스 제작 -> Service클래스 제작 -> Controller+jsp
 - 위 내용 중 게시물 관리에서 CRUD 컨트롤러 + jsp처리(4.파일업로드구현)
+- 작업순서: RUD -> C
+- Read: readBoard(서비스) -> board_view(컨트롤러)작업.
 - 관리자단 게시물관리 CRUD 처리(6. RestAPI서버구현, JUnit대신에 크롬부메랑으로 테스트)
+- 에러상황: ie11이하계열에서 한글 검색 후 페이지 선택시 400에러발생(크롬계열은 문제 없음.)
 
 #### 20210621(월) 작업.
+- 핵심은 Session 클래스객체 사용한 내용.
 - 관리자단 게시물관리 CRUD 처리(4.파일업로드구현,5.트랜잭션구현).
 - @Service 클래스 마무리
 - 정방향으로 개발 시작 VO제작 -> 매퍼쿼리제작 ->DAO클래스 제작 -> Service클래스 제작 -> Controller+jsp

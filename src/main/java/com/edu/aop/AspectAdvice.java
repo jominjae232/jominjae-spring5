@@ -27,7 +27,6 @@ import com.edu.vo.PageVO;
  * @author 조민재
  *
  */
-@Component
 @Aspect
 @ControllerAdvice
 public class AspectAdvice {
@@ -40,7 +39,7 @@ public class AspectAdvice {
 	//쿠키? 서버-PC 구조상에서 클라이언트가 서버에 접속할때 클라이언트에 발생되는 정보를 쿠기라고함(PC에 저장됨)
 	//옛날에는 쿠키로 로그인 체크를 했음.->보안상 PC에 로그인정보가 저장되기 때문에 위험(인터넷광고에만사용)->세션만사용
 	//Aspect로 AOP를 구현할때는 포인트컷(Advice참견이 실행될 위치)이 필요합니다.
-	//@Around=@Before+@After = @Around(포인트컷 전+후.*(...)모든 메서드)
+	//@Around=@Before+@After = @Around(포인트컷 전+후.*(..)모든 메서드)
 	//@Around는 콜백함수 매개변수로 조인포인트객체(포인트컷에서 실해되는 메서드들) 를 필수로 받습니다.
 	@Around("execution(* com.edu.controller.*Controller.*(..))")
 	public Object sessionManager(ProceedingJoinPoint pjp) throws Throwable {
@@ -65,11 +64,12 @@ public class AspectAdvice {
 			}
 			if(session.getAttribute("session_board_type") != null) {
 				board_type = (String) session.getAttribute("session_board_type");
+				if(pageVO != null) {//Set은 pageVO가 null 아닐 경우만 실행되도록
 				pageVO.setBoard_type(board_type);//검색목표달성:여기서 항상 값을 가져가도록 구현됩니다.
+				}
 			}
 			logger.info("디버그19: "+(String) session.getAttribute("session_board_type"));
-		}
-		//Aspect > 포인트컷(Around) > 조인포인트(메서드) > 매개변수로 구현한 결과를 리턴
+		}		//Aspect > 포인트컷(Around) > 조인포인트(메서드) > 매개변수로 구현한 결과를 리턴
 		
 		Object result = pjp.proceed();//여기서 조인포인트가 실행됩니다.
 		return result;
