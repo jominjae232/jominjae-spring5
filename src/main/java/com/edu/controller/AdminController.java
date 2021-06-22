@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.edu.service.IF_BoardService;
 import com.edu.service.IF_BoardTypeService;
 import com.edu.service.IF_MemberService;
+import com.edu.util.CommonUtil;
 import com.edu.vo.AttachVO;
 import com.edu.vo.BoardTypeVO;
 import com.edu.vo.BoardVO;
@@ -43,6 +44,8 @@ public class AdminController {
 	private IF_BoardTypeService boardTypeService;
 	@Inject
 	private IF_BoardService boardService;//DI으로 스프링빈을 주입해서 객체로 생성
+	@Inject
+	private CommonUtil commonUtil;
 	
 	//게시물 상세보기 폼으로 접근하지 않고 URL쿼리 스트링으로 접근(GET)
 	@RequestMapping(value="/admin/board/board_view", method=RequestMethod.GET)
@@ -51,6 +54,7 @@ public class AdminController {
 		
 		//첨부파일 부분 attach데이터도 board_view.jsp로 이동해야 함(아래)
 		List<AttachVO> files = boardService.readAttach(bno);
+		logger.info("debug19: "+ files);
 		//배열객체 생성구조: String[] 배열명 = new String[배열크기];
 		//개발자가 만든 클래스형 객체 boardVO는 개발자가 만든 메서드 사용
 		//반면, List<AttachVO> files List클래스형 객체 files는 내장형 메서드 = .size()
@@ -68,7 +72,7 @@ public class AdminController {
 		boardVO.setReal_file_names(real_file_names);//boardVO에 Set//화면에보이는데
 		model.addAttribute("boardVO", boardVO);//게시물 + 첨부파일 명2개이상
 		//업로드한 파일이 이미지인지 아닌지 확인하는 용도의 데이터 입니다.아래(목적:이미지일때 미리보기 img태그를 사용 하기위해서)
-		model.addAttribute("checkImgArray", null);
+		model.addAttribute("checkImgArray", commonUtil.getCheckImgArray());
 		return "admin/board/board_view";//.jsp생략
 	}
 	

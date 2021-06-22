@@ -50,7 +50,7 @@ board_type = #{board_type}
 where bno = #{bno}
 </update>
 <!-- 아래 뷰카운터는 게시물 상세보기시 카운트 증가, 예 유튜브 조회수 증가 방식과 비슷. -->
-<update id="updateviewCount">
+<update id="updateViewCount">
 update tbl_board set
 view_count = nvl(view_count,0) + 1
 where bno = #{bno}
