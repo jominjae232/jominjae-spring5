@@ -51,24 +51,25 @@ public class BoardServiceImpl implements IF_BoardService {
 	public void updateBoard(BoardVO boardVO) throws Exception {
 		// TODO 첨부파일이 있으면 updateAttach -> 게시물 업데이트 updateBoard
 		boardDAO.updateBoard(boardVO);
-		//첨부파일 DB처리(아래)
+		// 첨부파일 DB처리(아래)
 		int bno = boardVO.getBno();
 		String[] save_file_names = boardVO.getSave_file_names();
 		String[] real_file_names = boardVO.getReal_file_names();
-		if(save_file_names == null) {return;}//조건이 맞지 않으면 빠져나감. 이후 실행 안 함
+		if(save_file_names == null) { return; }//조건이 맞지않으면 빠져나감. 이후 실행않함.
 		AttachVO attachVO = new AttachVO();
 		int index = 0;
 		String real_file_name = "";
 		for(String save_file_name:save_file_names) {
-			real_file_name =real_file_names[index];
-			attachVO.setBno(bno);
-			attachVO.setSave_file_name(save_file_name);
-			attachVO.setReal_file_name(real_file_name);
-			boardDAO.updateAttach(attachVO);
+			if(save_file_name != null) {//컨트롤러에서 null이 들어갈수 있는 로직이라서 추가
+				real_file_name = real_file_names[index];
+				attachVO.setBno(bno);
+				attachVO.setSave_file_name(save_file_name);
+				attachVO.setReal_file_name(real_file_name);
+				boardDAO.updateAttach(attachVO);
+			}
 			index = index + 1;//index++;
 		}
-		
-		
+				
 	}
 
 	@Transactional //All or NotAll
@@ -85,22 +86,24 @@ public class BoardServiceImpl implements IF_BoardService {
 	@Override
 	public void insertBoard(BoardVO boardVO) throws Exception {
 		// TODO [부모]게시물 insertBoard -> [자식] 첨부파일 있으면 첨부파일 insertAttach
-		//게시물  등록 + 반환값으로 bno추가
+		//게시물  등록 + 반환값으로 bno 추가
 		int bno = boardDAO.insertBoard(boardVO);
 		//첨부파일 등록: 1개 이상일때 가정해서 처리
 		String[] save_file_names=boardVO.getSave_file_names();//폴더에 저장용 파일명들
 		String[] real_file_names=boardVO.getReal_file_names();//UI용 배열 파일명들
 		if(save_file_names == null) { return; }//리턴이 발생되면, 이후 실행 않됨.
-		//첨부파일이 null이 아닐때 아래가 진행됨.
+		//첨부파일이 null 이 아닐때 아래가 진행됨.
 		int index = 0;
 		String real_file_name = "";//UI용 1개 파일명
 		AttachVO attachVO = new AttachVO();
 		for(String save_file_name:save_file_names) {//첨부파일 개수만큼 반복진행
-			real_file_name = real_file_names[index];
-			attachVO.setBno(bno);
-			attachVO.setReal_file_name(real_file_name);
-			attachVO.setSave_file_name(save_file_name);
-			boardDAO.insertAttach(attachVO);
+			if(save_file_name != null) {
+				real_file_name = real_file_names[index];			
+				attachVO.setBno(bno);
+				attachVO.setReal_file_name(real_file_name);
+				attachVO.setSave_file_name(save_file_name);
+				boardDAO.insertAttach(attachVO);
+			}
 			index++;//index = index + 1;
 		}
 	}

@@ -39,7 +39,7 @@
                 <label for="board_type">게시판타입</label>
                 <select name="board_type" class="form-control">
                 <c:forEach var="boardTypeVO" items="${listBoardTypeVO}">
-                <option ${boardVO.board_type==boardTypeVO.board_type?'selected':''} value="${boardTypeVO.board_type}">${boardTypeVO.board_name}</option>
+                  <option ${boardVO.board_type==boardTypeVO.board_type?'selected':''} value="${boardTypeVO.board_type}">${boardTypeVO.board_name}</option>
                 </c:forEach>
                   
                 </select>
@@ -50,7 +50,7 @@
               </div>
               <div class="form-group">
                 <label for="content">글내용</label>
-                <textarea name="content" id="content" class="form-control" placeholder="내용을 입력해주세요." required>${boardVO.content}</textarea>
+                <textarea name="content" id="content" class="form-control" placeholder="내용을 입력해주세요.">${boardVO.content}</textarea>
               </div>
               <div class="form-group">
                 <label for="writer">작성자</label>
@@ -60,27 +60,27 @@
                 <label for="exampleInputFile">첨부파일</label>
                 <c:forEach var="idx" begin="0" end="1">
                 <div class="input-group div_file_delete">
-                <!-- 위 div_file_delete 영역 이름은 첨부파일을 개별 Ajax 삭제할때 필요 -->
+                <!-- 위 div_file_delete 영역이름은 첨부파일을 개별 Ajax 삭제할때 필요 -->
                   <div class="custom-file">
                     <input name="file" type="file" class="custom-file-input" id="file_${idx}"><!-- id는 식별자0,1,2,3... -->
                     <label class="custom-file-label" for="file_${idx}">파일선택</label>
                   </div>
                   <!-- 기존 업로드된 파일을 수정폼에 보여주기, 삭제버튼 필요(아래) -->
                   <c:if test="${boardVO.save_file_names[idx] != null}">
-                   <p class="text-muted">
+                  	<p class="text-muted">
                   	<a href="/download?save_file_name=${boardVO.save_file_names[idx]}&real_file_name=${boardVO.real_file_names[idx]}">
                   	${boardVO.real_file_names[idx]}
                   	</a>
                   	&nbsp;<button type="button" class="btn btn-info btn_file_delete">삭제</button>
-                  	<input type="hidden" name="save_file_name" vlaue="${boardVO.save_file_names[idx]}">
-                  </p>
+                  	<input type="hidden" name="save_file_name" value="${boardVO.save_file_names[idx]}">
+                  	</p>
                   </c:if>
                 </div>
                 <div class="mb-2"></div>
                 
                 </c:forEach>
                 
-                
+
               </div>
               
             </div>
@@ -133,6 +133,13 @@
 			fontNames: ['Arial','Arial Black','맑은 고딕','궁서','Nanum Gothic'],
 			fontSizes: ['8','10','12','14','16','18','20','22','24','26','28','30'],
 			fontNamesIgnoreCheck: ['Nanum Gothic']
+		});
+		//서머노트에서 html5의 required 속성 작동이 않되기 때문에 아래 코드 추가
+		$("form[name='form_write']").on('submit',function(event){
+			if($('#content').summernote('isEmpty')){
+				alert("내용은 반드시 입력해 주세요");
+				event.preventDefault();//submit전송기능 사용금지.
+			}
 		});
 	});
 </script>
