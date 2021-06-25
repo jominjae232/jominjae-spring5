@@ -29,9 +29,9 @@ public class ReplyDAOImpl implements IF_ReplyDAO{
 	}
 
 	@Override
-	public void deleteReply(Integer rno) throws Exception {
+	public void deleteReply(ReplyVO replyVO) throws Exception {
 		// TODO 1개 레코드 지우기
-		sqlSession.delete("replyMapper.deleteReply", rno);
+		sqlSession.delete("replyMapper.deleteReply", replyVO);
 	}
 
 	@Override

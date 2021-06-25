@@ -25,7 +25,7 @@ public class ReplyServiceImpl implements IF_ReplyService {
 	@Override
 	public void deleteReply(ReplyVO replyVO) throws Exception {
 		// TODO 2개의 DAO를 호출(실행)합니다.
-		replyDAO.deleteReply(replyVO.getBno());
+		replyDAO.deleteReply(replyVO);
 		//현재 게시물 고유 번호 bno가 필요.
 		replyDAO.replyCountUpdate(replyVO.getBno(), -1);
 	}
