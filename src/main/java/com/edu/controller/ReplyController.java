@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,22 +29,44 @@ import com.edu.vo.ReplyVO;
  */
 @RestController
 public class ReplyController {
+	private Logger logger = LoggerFactory.getLogger(ReplyController.class);
 	@Inject
 	private IF_ReplyService replyService;
 	
-	//댓글등록 @RequestBody jsp에서 Ajax메서드로 보내온 값을 받을때 사용하는 애노테이션입니다.
-	@RequestMapping(value="/reply/reply_insert",method=RequestMethod.POST)
-	public ResponseEntity<String> reply_write(@RequestBody ReplyVO replyVO) {
+	//댓글 삭제를 RestFul로 처리
+	@RequestMapping(value="reply/reply_delete", method=RequestMethod.DELETE)
+	public ResponseEntity<String> reply_delete() {
+		ResponseEntity<String> result = null;
+		//삭제 기능은 내일부터
+		return result;
+	}
+	//댓글은 Read가 필요없음. 왜냐하면, Select로 가져온 값을 Ajax로 처리하기 때문에 쿼리를 날릴 필요가 없습니다.
+	//그래서, 바로 Update를 처리합니다. - 간단하게 update시 Read쿼리가 없고, Ajax처리함.
+	@RequestMapping(value = "reply/reply_update", method=RequestMethod.PATCH)
+	public ResponseEntity<String> reply_update(@RequestBody ReplyVO replyVO) {
+		//@RequestBody jsp에서 $.ajax를 이용해서 보내는 데이터값 <-> @ResponseBody 응답return값
+		ResponseEntity<String> result = null;
+		try {
+			replyService.updateReply(replyVO);
+			result = new ResponseEntity<String>("success",HttpStatus.OK);
+		} catch (Exception e) {
+			result = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return result;//Restful방식은 항상 반환값이(Body: String, Hasmap-json부분) 존재합니다.
+	}
+	//댓글 등록 @RequestBody는 jsp에서 Ajax메서드로 보내온 값을 받을때 사용하는 애노테이션 입니다.
+	@RequestMapping(value="/reply/reply_insert", method=RequestMethod.POST)
+	public ResponseEntity<String> reply_insert(@RequestBody ReplyVO replyVO) {
 		//ResponseEntity == ResponsBody
 		ResponseEntity<String> result = null;
-		//개발자가 스프링에 예외를 throws하지 않고, 직접처리하는 try~catch하는 목적:
+		//개발자가 스프링에 예외를 throws하지않고, 직접처리 try~catch하는 목적:
 		//Rest상태값(200,204,500등의 상황들)을 개발자가 보내줘야 하기 때문에...
 		try {
 			replyService.insertReply(replyVO);
-			result = new ResponseEntity<String>("success",HttpStatus.OK);//객체 생성시 매개변수로 상태값 + 입력성공시 success라는 문자열도 보냄.
+			result = new ResponseEntity<String>("success",HttpStatus.OK);//객체 생성시 매개변수로 상태값 + 입력성공시 success라는 문자열도 보냄
 			
 		} catch (Exception e) {
-			result = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			result = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		return result;
@@ -91,8 +115,9 @@ public class ReplyController {
 		if(pageVO.getTotalCount() > 0) {
 			//아래 resultMap을 만든 목적은: 위 List객체를 ResponseEntity객체의 매개변수로 사용.
 			Map<String,Object> resultMap = new HashMap<String,Object>();
-			resultMap.put("replyList", replyService.selectReply(pageVO));
+			resultMap.put("replyList", replyService.selectReply(bno, pageVO));
 			resultMap.put("pageVO", pageVO);
+			logger.info("여기까지");
 			//객체를 2개 이상 보내게 되는 상황일때, Json데이터형태(key:value)로 만들어서 보냅니다. 
 			//--------------------------------------------------------
 			//result객체를 만든목적:RestApi클라이언트(jsp쪽)으로 resultMap객체를 보낼때 상태값을 위해서
