@@ -27,8 +27,8 @@
 
 #### 20210701(목) 작업.
 - 어제 작업한 security-context를 데이터 변수값의 이동 기준으로 다시 설명.
-- 수업 시작전 깃허브 암호정책 변경으로 토큰사용하는 방법 공유
-- 람다식사용예 : https://github.com/miniplugin/SQLite-kimilguk/blob/master/app/src/main/java/com/human/sqlite_kimilguk/MainActivity.java
+- 수업 시작전 깃허브 암호정책 변경으로 토큰사용하는 방법 공유, 8월부터 변경됨.
+- 람다식사용예:  https://github.com/miniplugin/SQLite-kimilguk/blob/master/app/src/main/java/com/human/sqlite_kimilguk/MainActivity.java
 - 어제 시큐리티적용 부분 확인(web.xml에서 누락된 부분 모두 추가)
 
 ```
@@ -51,7 +51,8 @@
 <!-- 위 쿼리에서 사용할 패스워드 암호화 id passwordEncoder 빈 클래스를 생성(아래) -->
 <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 ```
-
+- 스프링시큐리티 로그인및 권한체크 설정 후 사용자단 로그인 구현 예정.(관리자단 끝 이면서, 사용자단 시작): 사용자단 로그인 / 로그아웃 기능 처리.
+- 사용자단 회원가입, 수정, 탈퇴 JSP기능 추가예정.
 #### 20210630(수) 작업.
 - 댓글 Delete 구현 후 마무리.
 - 스프링시큐리티 로그인및 권한체크 설정 후 사용자단 로그인 구현 예정.(관리자단 끝 이면서, 사용자단 시작): 사용자단 로그인/로그아웃 기능 처리.
