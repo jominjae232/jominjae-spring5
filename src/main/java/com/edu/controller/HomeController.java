@@ -1,7 +1,11 @@
 package com.edu.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.ThrowsAdvice;
 //외부 라이브러리(모듈) 사용 = import
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +25,6 @@ public class HomeController {
 	//스프링빈(클래스) 에서는 로거로 디버그를 합니다.=로거객체를 만듭니다.
 	// 로그중 slf4j(Spring Log For Java)
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
 	/**
 	 * 사용자요청(웹브라우저)을 받아서=@RequestMapping인테페이스를 사용해서 메서드명을 스프링이 구현합니다.
 	 *  ,router(루트rootX)
@@ -30,6 +33,19 @@ public class HomeController {
 	 */
 	//이제부터 일반적인 개발방시 VO->쿼리->DAO->Service(관리자단에서 여기까지끝)
 	//관리자단에서 작성한 Service 사용자단에서 그대로 이용, 컨트롤러부터 분리해작업->jsp
+	
+	
+	//마이페이지 폼호출 GET방식, 회원 수정폼이기 때문에 model담아서 변수값을 전송이 필요
+	@RequestMapping(value="/member/mypage_form", method=RequestMethod.GET)
+	public String mypage_form(HttpServletRequest request, Model model) throws Exception {
+		//로그인한 사용자 세션을 session_userid로 memberService의 readMember를 호출하면 됨.
+		//jsp에서 발생된 세션을 가져오려고 하기 때문에 HttpServletRequest객체가 사용됩니다.
+		HttpSession session = request.getSession();//싱클톤 객체
+		String user_id = (String) session.getAttribute("session_userid");
+		model.addAttribute("memberVO", null);
+		return "home/member/mypage";//.jsp생략
+	}
+	
 	//사용자단 로그인 폼호출 GET, 로그인POST처리는 컨트롤러에서 하지않고 스프링시큐리티로 처리
 	@RequestMapping(value="/login_form", method=RequestMethod.GET)
 	public String login_form() throws Exception {
