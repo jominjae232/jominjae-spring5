@@ -49,6 +49,7 @@ public class HomeController {
 		String rawPassword = memberVO.getUser_pw();
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		memberVO.setUser_pw(passwordEncoder.encode(rawPassword));//암호화 실행
+		
 		memberService.insertMember(memberVO);
 		rdat.addFlashAttribute("msg", "회원가입");//회원가입 가(이) 성공했습니다. 출력
 		return "redirect:/login_form";//페이지 리다이렉트로 이동
