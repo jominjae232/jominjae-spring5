@@ -52,51 +52,51 @@ public class HomeController {
 	private IF_BoardService boardService;
 	
 	//게시물 리스트 페이지 호출 GET 추가
-	@RequestMapping(value="/home/board/board_list", method=RequestMethod.GET)
+	@RequestMapping(value="/home/board/board_list",method=RequestMethod.GET)
 	public String board_list(@ModelAttribute("pageVO") PageVO pageVO, Model model) throws Exception {
 		if(pageVO.getPage() == null) {
 			pageVO.setPage(1);
 		}
-		//pageVO의 2개 변수값을 필수로 입력해야지만 페이징처리가 가능
+		//pageVO의 2개변수값을 필수로 입력해야지만 페이징처리가 가능
 		pageVO.setQueryPerPageNum(5);
 		pageVO.setPerPageNum(5);
 		int totalCount = boardService.countBoard(pageVO);
-		pageVO.setTotalCount(totalCount);//여기에서 startPage,endPage,next변수값이 발생됨
+		pageVO.setTotalCount(totalCount);//여기에서 startPage,endPage,prev,next변수값이 발생됨
 		List<BoardVO> boardList = boardService.selectBoard(pageVO);
 		model.addAttribute("boardList", boardList);
-		return "home/board/board_list";//.jsp생략
+		return "home/board/board_list";//.jps생략
 	}
-	//404파일 에러 처리하는 GET 호출 추가
+	//404파일 에러 처리 GET 호출 추가
 	@RequestMapping(value="/home/error/error_404", method=RequestMethod.GET)
 	public String error_404() {
-		return "home/error/error_404";//.jsp생략.
+		return "home/error/error_404";//.jsp생략
 	}
 	//회원가입 처리 호출 POST방식
-	@RequestMapping(value="/join", method=RequestMethod.POST)
+	@RequestMapping(value="/join",method=RequestMethod.POST)
 	public String join(MemberVO memberVO, RedirectAttributes rdat) throws Exception {
-		//rawPassword암호를 스프링시큐리티로 인코딩합니다.(아래)
+		//rawPassword암호를 스프링시큐리티로 인코딩 합니다.(아래)
 		String rawPassword = memberVO.getUser_pw();
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		memberVO.setUser_pw(passwordEncoder.encode(rawPassword));//암호화 실행
+		memberVO.setUser_pw(passwordEncoder.encode(rawPassword));//암호화 실행.
 		
 		memberService.insertMember(memberVO);
 		rdat.addFlashAttribute("msg", "회원가입");//회원가입 가(이) 성공했습니다. 출력
 		return "redirect:/login_form";//페이지 리다이렉트로 이동
 	}
 	//회원가입폼 호출 Get방식
-	@RequestMapping(value="/join_form", method=RequestMethod.GET)
+	@RequestMapping(value="/join_form",method=RequestMethod.GET)
 	public String join_form() throws Exception {
 		
 		return "home/join";//.jsp생략
 	}
-	//마이페이지에서 회원 탈퇴 POST방식 처리만.
+	//마이페이지에서 회원탈퇴 POST방식 처리만.
 	@RequestMapping(value="/member/mypage_leave", method=RequestMethod.POST)
-	public String mypage_leave(MemberVO memberVO, RedirectAttributes rdat) throws Exception {
+	public String mypage_leave(MemberVO memberVO) throws Exception {
 		memberService.updateMember(memberVO);
-		//rdat.addFlashAttribute("msg", "회원탈퇴");//회원탈퇴가 내장된 logout을 사용시 X
+		//rdat.addFlashAttribute("msg", "회원탈퇴");//스프링내장된logout을 사용시X
 		return "redirect:/logout";
 	}
-	//마이페이지 회원 정보 수정 POST방식, 처리 후 msg를 히든값으로 jsp로 전송합니다.
+	//마이페이지 회원정보수정 POST방식. 처리 후 msg를 히든값으로 jsp로 전송합니다.
 	@RequestMapping(value="/member/mypage", method=RequestMethod.POST)
 	public String mypage(MemberVO memberVO, RedirectAttributes rdat) throws Exception {
 		//암호를 인코딩 처리합니다. 조건, 암호를 변경하는 값이 있을때
