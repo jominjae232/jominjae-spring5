@@ -57,10 +57,14 @@ public class HomeController {
 		if(pageVO.getPage() == null) {
 			pageVO.setPage(1);
 		}
-		//pageVO의 2개 필수로 입력해야지만 페이징처리가 가능
+		//pageVO의 2개 변수값을 필수로 입력해야지만 페이징처리가 가능
+		pageVO.setQueryPerPageNum(5);
+		pageVO.setPerPageNum(5);
+		int totalCount = boardService.countBoard(pageVO);
+		pageVO.setTotalCount(totalCount);//여기에서 startPage,endPage,next변수값이 발생됨
 		List<BoardVO> boardList = boardService.selectBoard(pageVO);
 		model.addAttribute("boardList", boardList);
-		return "home/error/board_list";//.jsp생략
+		return "home/board/board_list";//.jsp생략
 	}
 	//404파일 에러 처리하는 GET 호출 추가
 	@RequestMapping(value="/home/error/error_404", method=RequestMethod.GET)
