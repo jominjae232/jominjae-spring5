@@ -26,7 +26,49 @@
 - 헤로쿠 클라우드에 배포할때, 매퍼폴더의 mysql폴더내의 쿼리에 now()를 date_add(now(3), interval 9 HOUR) 변경예정.(이유는 DB서버 타임존 미국이기 때문에)
 
 #### 20210709(금) 작업.
-- 유틸수정 193
+- 게시물 CRUD시 본인글 인지 확인 하는 메서드를 공통으로 구현하기(많이사용하는 방향으로)
+
+```
+@Around("execution(* com.edu.controller.HomeController.board_delete(..)) || execution(* com.edu.controller.HomeController.board_update*(..))")
+    public Object board_deleteMethod(ProceedingJoinPoint pjp) throws Throwable {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+		if(request != null) {//jsp에서 Get,Post 있을때,
+			BoardVO boardVO = null;
+			String user_id = null;
+			Integer bno = null;
+			logger.info("디버그 메서드네임 가져오기 : " + pjp.getSignature().getName());//기술참조 https://alwayspr.tistory.com/34
+			for(Object object:pjp.getArgs()) {
+				if(object instanceof Integer) {//AOP실행메서드중 매개변수 판단
+					//파마미터가 bno일때 게시판의 writer를 가져오기
+					bno = (Integer) object;
+					boardVO = boardService.readBoard(bno);//아래 조건때문에 추가
+					user_id = boardVO.getWriter();
+				}
+				if(object instanceof BoardVO) {
+					//파라미터가 BoardVO 클래스객체 일때 writer를 가져오기
+					boardVO = (BoardVO) object;
+					user_id = boardVO.getWriter();
+				}
+			}
+			HttpSession session = request.getSession();//클라이언트PC에서 스프링프로젝트 접근시 세션객체
+			if( !user_id.equals(session.getAttribute("session_userid")) && "ROLE_USER".equals(session.getAttribute("session_levels")) ) {
+				FlashMap flashMap = new FlashMap();
+				flashMap.put("msgError", "게시물은 본인글만 수정/삭제 가능합니다.");
+				FlashMapManager flashMapManager = RequestContextUtils.getFlashMapManager(request);
+				flashMapManager.saveOutputFlashMap(flashMap, request, null);
+				String referer = request.getHeader("Referer");//크롬>네트워크>파일>Referer>이전페이지 URL이 존재
+				return "redirect:"+referer;
+			}
+		}
+		Object result = pjp.proceed();//여기서 조인포인트가 실행됩니다.
+		return result;
+	}
+```
+- 사용자단 댓글서비스 작업예정.
+- 사용자단 메인페이지(대시보드) 작업예정.
+- 헤로쿠 30분 지나서 휴면모드로 들어가기전, 잠깨우는 기능 추가예정.(스프링스케줄러사용)
+- 이력서 작업한 URL을 포트폴리오로 적어 놓으실때, 면접관이 1분정도 대기시간이 필요.
+- 헤로쿠클라우드는 처음접속시 1분정도 대기시간이 필요함(이력서에 명시)
 
 #### 20210708(목) 작업.
 - 사용자단 게시물 관리 CRUD중 Delete마무리 후, Update 실습
