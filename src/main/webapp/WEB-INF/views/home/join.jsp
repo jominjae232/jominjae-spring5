@@ -127,17 +127,18 @@ $(document).ready(function(){
 		if($(this).val() != "") {
 			$.ajax({
 				type:"get",
-				url:"/id_check?user_id="+$(this).val(),
-				dataType:"text",
+				url:"/id_check_2010?user_id="+$(this).val(),
+				dataType:"json",//전송받는 데이터형
 				success:function(result) {
-					if(result == 0) {//중복ID가 존재하지 않으면
-						$("#btn_insert").attr("disabled", false);
-						$("#btn_insert").css("opacity", "1");
+					alert(result.memberCnt);//JSON.stringify(result)
+					if(result.memberCnt == 0) {//중복ID가 존재하지 않으면
+						$("#btn_insert").attr("disabled",false);
+						$("#btn_insert").css("opacity","1");
 						$("#msg").remove();
-						$("#user_id_lbl").after("<div id='msg' style='color:blue'>사용가능한 ID입니다.</div>");
-					}else{//중복 아이디가 존재할때 아래 실행.
-						$("#btn_insert").attr("disabled", true);
-						$("#btn_insert").css("opacity", "0.5");
+						$("#user_id_lbl").after("<div id='msg' style='color:blue'>사용가능한 ID입니다</div>");
+					}else{//중복아이디가 존재할때 아래 실행
+						$("#btn_insert").attr("disabled",true);
+						$("#btn_insert").css("opacity","0.5");
 						$("#msg").remove();
 						$("#user_id_lbl").after("<div id='msg' style='color:red'>중복ID가 존재합니다.</div>");
 					}
