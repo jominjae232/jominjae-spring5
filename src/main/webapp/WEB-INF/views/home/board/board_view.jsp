@@ -5,12 +5,12 @@
 <%@ include file="../include/header.jsp" %>
 
 <!-- 메인콘텐츠영역 -->
-    <div id="container">
-   	<!-- 메인상단위치표시영역 -->
-	<%@ include file="./board_header.jsp" %>
-	<!-- //메인상단위치표시영역 -->
-    
-    
+<div id="container">
+    <!-- 메인상단위치표시영역 -->
+    <%@ include file="./board_header.jsp" %>
+    <!-- //메인상단위치표시영역 -->
+
+    <!-- 메인본문영역 -->
     <div class="bodytext_area box_inner">			
         <ul class="bbsview_list">
             <li class="bbs_title">${boardVO.title}</li>
@@ -28,21 +28,21 @@
             	<c:if test="${boardVO.real_file_names[idx] != null}">
             		<c:url var="url" value="/download">
             			<c:param name="save_file_name" value="${boardVO.save_file_names[idx]}" />
-            			<c:param name="real_file_name" value="${boardVO.real_file_names[idx]}" />
+            			<c:param name="real_file_name" value="${boardVO.real_file_names[idx]}"></c:param>
             		</c:url>
-            		<!-- 위 처럼 c:url로 쿼리스트링을 처리하면 한글이 인코딩되어서 전송됨. -->
-            		<a href="${url}">다운로드
-            		${boardVO.real_file_names[idx]}
-            		</a>
-            		<br>
-            		<!-- 첨부파일이 jpg,jpeg,png,bmp라면 img태그를 사용해서 미리보기 기능추가 -->
-            		<c:set var="fileNameArray" value="${fn:split(boardVO.save_file_names[idx],'.')}" />
-            		<c:set var="extName" value="${fileNameArray[fn:length(fileNameArray)-1]}" />
-            		<c:choose>
-            			<c:when test="${fn:containsIgnoreCase(checkImgArray,extName)}">
-            				<img alt="다운로드 이미지" style="width:100%; display:block;" src="/image_preview?save_file_name=${boardVO.save_file_names[idx]}">
-            			</c:when>
-            		</c:choose>
+            		<!-- 위 처럼 c:url로 쿼리스트링을 처리하면 한글이 인코딩되어서 전송됨 -->
+            		 <a href="${url}">다운로드 
+            		 ${boardVO.real_file_names[idx]}
+            		 </a>
+            		 <br>
+            		 <!-- 만약 첨부파일이 jpg,jpeg,gif,png,bmp라면 img태그를 사용해서 미리보기 기능추가 -->
+            		 <c:set var="fileNameArray" value="${fn:split(boardVO.save_file_names[idx],'.')}" />
+            		 <c:set var="extName" value="${fileNameArray[fn:length(fileNameArray)-1]}" />
+            		 <c:choose>
+            		 	<c:when test="${fn:containsIgnoreCase(checkImgArray,extName)}">
+            		 	<img alt="다운로드 이미지" style="width:100%;display:block;" src="/image_preview?save_file_name=${boardVO.save_file_names[idx]}">
+            		 	</c:when>
+            		 </c:choose>
             	</c:if> 
             </c:forEach>
             </li>
@@ -53,23 +53,26 @@
             <button type="button" id="btn_update" class="btn btn-warning">수정</button>
         </p>
         <form name="hide_form" id="hide_form" method="post" action="">
-        	<input type="hidden" name="bno" value="${bodarVO.bno}">
+        	<input type="hidden" name="bno" value="${boardVO.bno}">
         	<input type="hidden" name="page" value="${pageVO.page}">
         </form>
         <script>
-		$(document).ready(function(){
-			var form = $("#hide_form");
-			$("#btn_delete").click(function(){
-				if(confirm("정말로 삭제 하시겠습니까?")) {
-				form.attr("action","/home/board/board_delete");
-				form.submit();
-				}
-			});
-			$("#btn_update").click(function(){
-				alert("수정 준비중입니다.");
-			});
-		});
-		</script>
+        $(document).ready(function(){
+        	var form = $("#hide_form");
+        	$("#btn_delete").click(function(){
+        		if(confirm("정말로 삭제 하시겠습니까?")) {
+        			form.attr("action","/home/board/board_delete");
+        			form.submit();
+        		}        		
+        	});
+        	$("#btn_update").click(function(){
+        		//alert("수정 준비중입니다.");
+        		form.attr("action","/home/board/board_update_form");
+        		form.attr("method","get");
+        		form.submit();
+        	});
+        });
+        </script>
     </div>
     <!-- //메인본문영역 -->
 

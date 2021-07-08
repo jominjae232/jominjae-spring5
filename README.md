@@ -30,6 +30,7 @@
 
 #### 20210708(목) 작업.
 - 사용자단 게시물 관리 CRUD중 Delete마무리 후, Update 실습
+- 우리나라 스프링 기반 솔루션을 만들던 시기(스프링버전2.5 - 2015년 전후) Rest-Api(jsonview방식), 현재(2021년 스프링버전 5.x사용) Rest-Api(@RestController방식-,@ResponseBody)
 - JsonView방식(고전 방식의 RestAPI처리) 실습
 - 사용자단 메인페이지(대시보드) 작업예정
 - 사용자단 메인페이지(대시보드) 작업예정.
