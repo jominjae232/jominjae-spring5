@@ -86,7 +86,8 @@
 				</p>	
 			</fieldset>
 			<input name="board_type" value="${session_board_type}" type="hidden" >
-			<input name="page" value="${pageVO.page}" type="hidden" >
+			<input name="page" value="${pageVO.page}" type="hidden">
+			<input name="bno" value="${boardVO.bno}" type="hidden">
 		</form>
 		<!-- //폼영역 -->
 	</div>
