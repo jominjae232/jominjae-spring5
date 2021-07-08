@@ -190,7 +190,7 @@ public class CommonUtil {
 				memberCnt = "0";
 			}
 		}
-		model.addAttribute("memberCnt", memberCnt);
+		model.addAttribute("memberCnt", memberCnt);//자바 List,String객체를 json객체로
 		return "jsonView";//jsp파일명 대신에 servlet에서 정의한 스프링빈 ID명을 적으면, json객체로 결과를 반환합니다.
 	}
 

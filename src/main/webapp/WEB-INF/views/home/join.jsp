@@ -130,7 +130,7 @@ $(document).ready(function(){
 				url:"/id_check_2010?user_id="+$(this).val(),
 				dataType:"json",//전송받는 데이터형
 				success:function(result) {
-					alert(result.memberCnt);//JSON.stringify(result)
+					//alert(result.memberCnt);//JSON.stringify(result)
 					if(result.memberCnt == 0) {//중복ID가 존재하지 않으면
 						$("#btn_insert").attr("disabled",false);
 						$("#btn_insert").css("opacity","1");
