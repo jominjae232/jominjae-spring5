@@ -55,7 +55,7 @@
 					<script>
 					$(document).ready(function(){
 						$(".btn_file_delete").click(function(){
-							//alert("삭제버튼 확인");화면이 바뀌지 않고, 현재 선택한 파일만 삭제하는 경우
+							//alert("삭제버튼 확인");//화면이 바뀌지 않고, 현재 선택한 파일만 삭제하는 경우
 							var this_btn = $(this);//2개이상인 버튼에서 선택한 버튼을 구별하는 용도 this를 사용
 							var delete_file_name = this_btn.parent().find("input[name='delete_file_name']").val();
 							if(delete_file_name == "") {//!= 테스트OK -> == 변경
@@ -81,11 +81,12 @@
 					</script>
 				</ul>
 				<p class="btn_line">
-				<button type="submit" class="btn_baseColor">등록</button>
+				<button type="submit" class="btn_baseColor">수정</button>
 				<a href="/home/board/board_list" class="btn_baseColor">목록</a>
 				</p>	
 			</fieldset>
 			<input name="board_type" value="${session_board_type}" type="hidden" >
+			<input name="page" value="${pageVO.page}" type="hidden" >
 		</form>
 		<!-- //폼영역 -->
 	</div>
