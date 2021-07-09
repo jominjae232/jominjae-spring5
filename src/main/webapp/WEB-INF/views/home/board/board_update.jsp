@@ -55,7 +55,7 @@
 					<script>
 					$(document).ready(function(){
 						$(".btn_file_delete").click(function(){
-							//alert("삭제버튼 확인");//화면이 바뀌지 않고, 현재 선택한 파일만 삭제하는 경우
+							//alert("삭제버튼 확인");화면이 바뀌지 않고, 현재 선택한 파일만 삭제하는 경우
 							var this_btn = $(this);//2개이상인 버튼에서 선택한 버튼을 구별하는 용도 this를 사용
 							var delete_file_name = this_btn.parent().find("input[name='delete_file_name']").val();
 							if(delete_file_name == "") {//!= 테스트OK -> == 변경

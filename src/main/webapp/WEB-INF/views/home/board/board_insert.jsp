@@ -37,7 +37,7 @@
 							<label class="custom-file-label" for="customFile" style="color:#999;">파일첨부${idx}</label>
 						</div>
 						<div style="height:10px;"></div>
-						</c:forEach>
+						</c:forEach>					
 					</li>
 				</ul>
 				<p class="btn_line">
@@ -45,7 +45,7 @@
 				<a href="/home/board/board_list" class="btn_baseColor">목록</a>
 				</p>	
 			</fieldset>
-			<input name="board_type" value="${session_board_type}" type="hidden">
+			<input name="board_type" value="${session_board_type}" type="hidden" >
 		</form>
 		<!-- //폼영역 -->
 	</div>

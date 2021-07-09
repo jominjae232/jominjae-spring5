@@ -49,8 +49,8 @@ public class ReplyController {
 		return result;
 	}
 	//댓글은 Read가 필요없음. 왜냐하면, Select로 가져온 값을 Ajax로 처리하기 때문에 쿼리를 날릴 필요가 없습니다.
-	//그래서, 바로 Update를 처리합니다. - 간단하게 update시 Read쿼리가 없고, Ajax처리함.
-	@RequestMapping(value = "reply/reply_update", method=RequestMethod.PATCH)
+	//그래서, 바로 Update를 처리합니다.-간단하게 update시 Read쿼리가 없고, Ajax처리함.
+	@RequestMapping(value="/reply/reply_update", method=RequestMethod.PATCH)
 	public ResponseEntity<String> reply_update(@RequestBody ReplyVO replyVO) {
 		//@RequestBody jsp에서 $.ajax를 이용해서 보내는 데이터값 <-> @ResponseBody 응답return값
 		ResponseEntity<String> result = null;
@@ -60,7 +60,7 @@ public class ReplyController {
 		} catch (Exception e) {
 			result = new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return result;//Restful방식은 항상 반환값이(Body: String, Hasmap-json부분) 존재합니다.
+		return result;//Restful방식은 항상 반환값이(Body:String, Hasmap-json부분) 존재합니다.
 	}
 	//댓글 등록 @RequestBody는 jsp에서 Ajax메서드로 보내온 값을 받을때 사용하는 애노테이션 입니다.
 	@RequestMapping(value="/reply/reply_insert", method=RequestMethod.POST)

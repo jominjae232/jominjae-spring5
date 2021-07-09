@@ -40,7 +40,7 @@
             		 <c:set var="extName" value="${fileNameArray[fn:length(fileNameArray)-1]}" />
             		 <c:choose>
             		 	<c:when test="${fn:containsIgnoreCase(checkImgArray,extName)}">
-            		 	<img alt="다운로드 이미지" style="max-width:100%; display:block;" src="/image_preview?save_file_name=${boardVO.save_file_names[idx]}">
+            		 	<img alt="다운로드 이미지" style="max-width:100%;display:block;" src="/image_preview?save_file_name=${boardVO.save_file_names[idx]}">
             		 	</c:when>
             		 </c:choose>
             	</c:if> 
@@ -189,8 +189,33 @@
 
 </div>
 
-<!-- 댓글 하단의 페이징 처리용 변수값 지정 -->
-<input id="reply_page" type="hidden" value="1" >
+<!-- 댓글 하단의 페이징처리용 변수값지정 -->
+<input id="reply_page" value="1" type="hidden">
+<!-- 모달창(초기엔 숨긴상태modal-display:none, fade-opacity:0-수정버튼을 클릭하면 나타나는 창) -->
+<div class="modal fade" id="modal-reply">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h4 class="modal-title">작성자명</h4>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<input class="form-control" type="text" name="modal_reply_text" id="modal_reply_text" value="댓글내용 출력">
+		</div>
+		<div class="modal-footer"><!-- justify-content-between:양쪽배분정렬 -->
+			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			<button id="btn_reply_update" type="button" class="btn btn-primary">수정</button>
+			<button id="btn_reply_delete" type="button" class="btn btn-danger">삭제</button>
+			<input type="hidden" id="rno" name="rno">
+		</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <!-- //메인콘텐츠영역 -->
 <%@ include file="../include/footer.jsp" %>
@@ -253,8 +278,8 @@ var replyList = function() {
 		error:function(result) {
 			//console.log(result);//크롬에서 확인할 때,
 			//전체 json데이터를 출력할때 stringify함수로 형변환해서 출력
-			//만약 json데이터에서 키이름을 알게 되면, stringify함수 필요 없이 result.responseText출력가능
-			alert(result.responseText);//이클립스에서 확인할 때 관리자단에서만 사용
+			//만역 json데이터에서 키이름을 알게 되면, stringfy함수필요없이 result.responseText출력가능
+			alert(result.responseText);//이클립스에서 확인할 때, 관리자단에서만사용
 			//단, 관리자단에서만 디버그하고, 사용자단에서는 아래 항목만 유지
 			alert("RestAPI서버가 작동하지 않습니다. 다음에 이용해 주세요0.");
 		}
@@ -264,21 +289,21 @@ var replyList = function() {
 <script>
 //댓글 CRUD처리
 $(document).ready(function(){
-	//댓글 모달창 삭제 버튼의 액션 처리
+	//댓글 모달창 삭제버튼의 액션처리
 	$("#btn_reply_delete").click(function(){
-		//댓글 삭제할때 필요한 변수확인 2개 rno(삭제 쿼리 사용), bno(게시물 댓글 카운트 업데이트에 사용)
-		var rno = $("#rno").val();//모달창의 input태그의 값을 가져옵니다.
-		var bno = "${boardVO.bno}";//자바변수값, @Controller의 model에 담긴 값을 사용
+		//댓글을 삭제할때 필요한 변수확인 2개 rno(삭제쿼리사용), bno(게시물댓글카운트업데이트에사용)
+		var rno = $("#rno").val();//모달창의 input태그의 값을 가져오기
+		var bno = "${boardVO.bno}";//자바변수값. @Controller의 model에 담긴값을 사용
 		$.ajax({
 			type:"delete",//전송타입, 컨트롤러의 RequestMethod의 값과 동일
 			url:"/reply/reply_delete/"+bno+"/"+rno,//endpoint=@RestController의 @RequestMapping(value="")
-			dataType:"text",//결과값을 받는 데이터 형식 text-String, json-Map<String,Object>
-			//data:"",//처리할 값을 보내는 데이터 형식 -> json을 사용하지 않고 패스베리어블 보내기때문
-			//headers:"",//크롬의 개발자 도구>네트워크 항목의 오른쪽 창에서 확인 가능,전송 방식 때문에 필요
+			dataType:"text",//결과값을 받는 데이터형식 text-String, json-Map<String,Object>
+			//data:"",//처리할 값을 보내는 데이터형식 -> json을 사용하지 않고 패스베리어블 보내기때문
+			//headers:"",//크롬의 개발자도구>네트워크항목의 오른쪽 창에서 확인가능, 전송방식때문에 필요
 			success:function(result) {
 				if(result=="success") {
 					alert("삭제 되었습니다.");
-					//삭제후 모달창 숨기고, 댓글 카운트UI -1처리, 댓글 리스트 리프레시(렌더링)
+					//삭제후 모달창 숨기고, 댓글카운트UI -1처리, 댓글 리스트 리프레시(렌더링)
 					$("#modal-reply").modal("hide");
 					var reply_count = $("#reply_count").text();//Get
 					$("#reply_count").text(parseInt(reply_count)-1);//Set
@@ -287,19 +312,18 @@ $(document).ready(function(){
 				}
 			},
 			error:function() {
-				alert("API서버가 작동하지 않습니다. 다음에 시도해 주세요1.");
+				alert("RestAPI서버가 작동하지 않습니다. 다음에 시도해 주세요1.");
 			}
-			
 		});
 	});
-	//댓글 모달창 수정 버튼의 액션 처리
+	//댓글 모달창 수정버튼의 액션처리
 	$("#btn_reply_update").click(function(){
-		//댓글을 수정할때 필요한 변수 확인
+		//댓글을 수정할때 필요한 변수확인
 		var reply_text = $("#modal_reply_text").val();//modal내 태그로 변경
-		var rno = $("#rno").val();//modal내 input 태그로 추가
+		var rno = $("#rno").val();//modal내 input태그로 추가
 		if(reply_text == '' || rno == '') {//&& and, || or
 			//위 조건 2중에 1개라도 만족하면 아래 내용이 실행
-			alert("작성자ID와 댓글내용은 공백이면 않됩니다.");
+			alert("댓글내용은 공백이면 않됩니다.");
 			return false;//더이상 실행없이 콜백함수를 빠져 나갑니다.
 		}
 		$.ajax({
@@ -314,13 +338,13 @@ $(document).ready(function(){
 				"Content-Type":"application/json",
 				"X-HTTP-Method-Override":"PATCH"
 			},//json데이터 형식으로 브라우저에 내장된 헤더값을 지정.
-			success:function(result){//댓글 입력이 성공시 실행
+			success:function(result){//댓글 입력이 성공시 실행 
 				if(result=="success") {
 					alert("수정에 성공했습니다.");
 					//모달창 숨기기(아래)
 					$("#modal-reply").modal("hide");
 					//댓글 수정 후 화면에 댓글 목록 출력하는 함수실행
-				replyList();//목록화면의 일부분만 리프레시(재생)
+					replyList();//화면의 일부분만 리프레시(재생)
 				}
 				
 			},
@@ -370,34 +394,29 @@ $(document).ready(function(){
 				$("#reply_page").val("1");//val()로 값을 입력, input태그라는 말.
 				//댓글 입력 후 화면에 댓글 목록 출력하는 함수실행
 				replyList();
+				//alert("test출력2");
 			},
 			error:function() {
 				alert("RestAPI서버가 작동하지 않습니다. 잠시 후 이용해 주세요3.")
-			}//추가 기능 예정.
-			
+			},//추가기능예정.
+			beforeSend:function() {
+				//alert("전송전에 실행할 내용출력1");
+			},
+			complete:function() {
+				//success 완료된 이후 실행해야할 내용이 있을때 사용
+				//success에서 함수가 여러개 실행될때 순서가 중요한 경우 분리해서 사용
+				$("#reply_text").val("");//기존 입력창의 댓글 내용을 지우기. 
+				alert("등록이 완료 되었습니다.");
+			},
+			async:true
+			//Async+Javascript And Xml:비동기 데이터통신
+			//Ajax이지만, 비동기 false로 하는경우(아이작스로 대용량첨부파일 업로드할때)
+			//success:업로딩중...표시가 됨. -> 업로드가 완료되면 complete실행됨
 		});
 	});
 });
 </script>
 
-<script>
-//게시물 목록버튼과 게시물 삭제버튼 처리
-$(document).ready(function(){
-	var form_view = $("form[name='form_view']");//전역변수
-	$("#btn_list").click(function(){
-		//여기서는 함수내 변수
-		form_view.attr("action","/admin/board/board_list");
-		form_view.submit();
-	});
-	$("#btn_delete").click(function(){
-		if(confirm('정말로 삭제 하시겠습니까?')) {//Yes를 클릭하면 아래내용 실행
-			form_view.attr("action","/admin/board/board_delete");
-			form_view.attr("method", "post");
-			form_view.submit();
-		}
-	});
-});
-</script>
 <script>
 // 댓글 리스트에서 수정 버튼클릭시 현재 선택한 값을 모달창에 보여주는 것을 구현(아래)
 $(document).ready(function(){
