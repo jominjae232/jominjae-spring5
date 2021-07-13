@@ -30,10 +30,10 @@ public class LoginController {
 	@Inject
 	private IF_MemberService memberService;
 	
-	//HomeController에 있던 /login_form을 네아로 로그인 URL생성 때문에 여기로 이동.
-	@RequestMapping(value="/login_form", method=RequestMethod.GET)
+	//HomeController에 있던 /login_form을 네아로 로그인URL 생성때문에 여기로 이동.
+	@RequestMapping(value="/login_form",method=RequestMethod.GET)
 	public String login_form(Model model,HttpSession session) throws Exception {
-		//네이버 인증 Url구하기:세션은 서버에 클라이언트 접속 정보를 저장하는 공간 세션입니다. 
+		//네이버 인증 Url구하기:세션은 서버에 클라이언트접속정보를 저장하는 공간이 세션입니다. 
 		String naverAuthUrl = "";
 		
 		model.addAttribute("url", null);
@@ -69,7 +69,7 @@ public class LoginController {
 			if(authorities.stream().filter(o -> o.getAuthority().equals("ROLE_ANONYMOUS")).findAny().isPresent()) {
 				levels = "ROLE_ANONYMOUS";//권한_무명
 			}
-			if( authorities.stream().filter(o -> o.getAuthority().equals("ROLE_USER")).findAny().isPresent() ) {
+			if( authorities.stream().filter((o) -> o.getAuthority().equals("ROLE_USER")).findAny().isPresent() ) {
 				levels = "ROLE_USER";//권한_일반사용자
 			}
 			if(authorities.stream().filter(o -> o.getAuthority().equals("ROLE_ADMIN")).findAny().isPresent()) {

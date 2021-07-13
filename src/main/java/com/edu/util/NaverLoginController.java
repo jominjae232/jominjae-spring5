@@ -1,5 +1,6 @@
 package com.edu.util;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 
@@ -7,5 +8,8 @@ import org.springframework.stereotype.Controller;
 @PropertySource("classpath:properties/sns.properties")
 @Controller //스프링빈으로 등록되면, 인젝션으로 객체를 사용가능하게 됨.
 public class NaverLoginController {
+	@Value("${SnsClientID}")//스프링빈의 전역변수를 가져올때 @Resource와 비교하면 도움.
+	private String CLIENT_ID;//properties에 전역변수값을 클래스 변수값으로 사용
+	@Value("${SnsClientSecret}")
 	
 }
