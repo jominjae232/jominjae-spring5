@@ -82,14 +82,13 @@
 - 현업에서는 위 3가지 템플릿중 1가지는 항상 사용하기 때문에 대표적으로 타일즈를 실습할 예정입니다.
 - 위 3가지 구조는 비슷하기 때문에 1가지만 아셔도 다른 jsp템플릿 적용시 응용가능합니다.
 - 작업순서: 
-- 1. pom.xml 타일즈 모듈 라이브러리 추가
-- 2. tiles-context.xml 타일즈설정파일 추가
-- 3. 위 설정파일을 기준으로 titles폴더 및 layouts폴더 생성 후 layout.jsp생성
-- 4. 기존 home/include 폴더의 header.jsp 와 footer.jsp 파일 복사해서 그대로 사용
-- 5. 기존 home/index.jsp 파일 그대로 복사해서 tiles/index.jsp로 복사해서 @include 삭제만 처리
-- 6. servlet-context.xml 에서 타일즈용 뷰리졸버 빈 추가
+- 1. pom.xml 타일즈 모듈 라이브러리 추가.
+- 2. tiles-context.xml 타일즈설정파일 추가.
+- 3. servlet-context.xml 에서 타일즈용 뷰리졸버 빈 추가
+- 4. 위 설정파일을 기준으로 titles폴더 및 layouts폴더 생성 후 layout.jsp생성
+- 5. 기존 home/include 폴더의 header.jsp 와 footer.jsp 파일 복사해서 그대로 사용
+- 6. 기존 home/index.jsp 파일 그대로 복사해서 tiles/index.jsp로 복사해서 @include 삭제만 처리
 - 7. HomeController 에서 기존 @RequestMapping 복사해서 타일즈용으로 추가
-- 결과 확인 끝.
 
 #### 20210715(목) 작업.
 - 데이터의 이동과 변수값 처리 2가지만 알면, 개발자로 일 할 수 있음.
