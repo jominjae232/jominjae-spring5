@@ -74,6 +74,9 @@
 - 위 HashMap구조: Map(인터페이스-메서드명) > HashMap(구현클래스)
 - Hash해시태그: 그물망(해시) = # = 좌표(x,y) = (Key,Value) 
 
+#### 20210719(월) 작업.
+- 알고리즘 다이어그램기반으로 자바코딩테스트.
+
 #### 20210716(금) 작업.
 - 수업전 헤로쿠에 배포 후 어제 작업한 결과 확인해 보겠습니다.
 - jsp템플릿인 tiles(타일즈) 사용.
@@ -91,7 +94,7 @@
 - 5. 기존 home/include 폴더의 header.jsp 와 footer.jsp 파일 복사해서 그대로 사용
 - 6. 기존 home/index.jsp 파일 그대로 복사해서 tiles/index.jsp로 복사해서 @include 삭제만 처리
 - 7. HomeController 에서 기존 @RequestMapping 복사해서 타일즈용으로 추가
-- 알고리즘 다이어그램기반으로 자바코딩테스트예정(깃 it강의저장소자료이용).
+
 
 #### 코딩테스트 시작
 
