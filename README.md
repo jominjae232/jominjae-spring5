@@ -91,6 +91,48 @@
 - 5. 기존 home/include 폴더의 header.jsp 와 footer.jsp 파일 복사해서 그대로 사용
 - 6. 기존 home/index.jsp 파일 그대로 복사해서 tiles/index.jsp로 복사해서 @include 삭제만 처리
 - 7. HomeController 에서 기존 @RequestMapping 복사해서 타일즈용으로 추가
+- 알고리즘 다이어그램기반으로 자바코딩테스트예정(깃 it강의저장소자료이용).
+
+#### 코딩테스트 시작
+
+```
+import java.io.BufferedReader; //키보드 입력 때문에 필요
+import java.io.InputStreamReader; //키보드 입력 때문에 필요
+import java.util.Arrays; //오름차순 정렬 때문에 필요
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int N;
+		int[] questions;
+		N = Integer.parseInt(br.readLine());//키보드로 입력받는 커서가 나옴.
+		//System.out.println("키보드로 입력한 값은 " + N);
+		questions = new int[N];//키보드로 입력한 값N으로 난이도 배열의 크기를 지정합니다.
+		String str = br.readLine();//키보드 입력받는 커서가 나옴. 단, 숫자사이에 공백을 집어 넣습니다.
+		//문자열로 입력 받은 문자를 questions 정수형 배열변수에 하나씩 입력 합니다.
+		String[] strArray = str.split(" ");
+		for(int i = 0; i < N;i++) {
+			questions[i] = Integer.parseInt(strArray[i]);
+		}
+		//System.out.println("난이도 입력값 " + Arrays.toString(questions));
+		Arrays.sort(questions);//입력받은 questions배열을 오름차순 정렬
+		int count = 0;
+		int before = questions[0];
+		//int current = 0;
+		for(int current:questions) {
+			if(before != current) {
+				count = count + 1;
+			}
+			if(count == 2) { break; }
+			before = current;
+		}
+		if(count >= 2) {
+			System.out.println("YES");
+		}else {
+			System.out.println("NO");
+		}
+	}
+}
+```
 
 #### 20210715(목) 작업.
 - 데이터의 이동과 변수값 처리 2가지만 알면, 개발자로 일 할 수 있음.
