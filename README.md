@@ -75,6 +75,110 @@
 - Hash해시태그: 그물망(해시) = # = 좌표(x,y) = (Key,Value) 
 
 #### 20210719(월) 작업.
+
+- Temp변수사용 정렬 코딩 테스트02소스(아래).지난주 사용한 Arrays클래스 sort메서드 구성연습
+- 예, 중복 for문에서 외부1회전 > 내부 for문 1회전-4회전
+- 5, 4, 3, 2, 1(원시데이터)
+- 4, 5, 3, 2, 1(내부for1회전)
+- 3, 5, 4, 2, 1(내부for2회전)
+- 2, 5, 4, 3, 1(내부for3회전)
+- 1, 5, 4, 3, 2(내부for4회전)
+- 외부 2회전
+- 1, 5, 4, 3, 2(원시데이터)
+- 1, 4, 5, 3, 2(내부for1회전)
+- 1, 3, 5, 4, 2(내부for2회전)
+- 1, 2, 5, 4, 3(내부for3회전) 
+
+```
+import java.util.Scanner;
+import java.util.Arrays;//로직에서 필요 없으나, 디버그용으로 사용
+class Main {
+	public static void main(String[] args) {
+		int n;//정렬할 숫자의 개수 변수생성
+		int[] Numbers;//배열변수 생성
+		int prev, next, Temp;//이전,다음,임시저장변수 생성
+		Scanner sc = new Scanner(System.in);//스캐너클래스를 이용해서 바이트단위(문자)로 키보드로 입력받음 커서발생
+		n = sc.nextInt();//키보드로 입력받는 내용을 n에 입력합니다.
+		//System.out.println("키보드로 입력받은 변수값은 : " + n);
+		Numbers = new int[n];//배열변수의 크기 초기화.
+		for(int i=0;i<n;i++) {//키보드 정렬할 변수값을 입력 받습니다.Numbers[]배열변수에...
+			Numbers[i] = sc.nextInt();
+		}
+		//Arrays.sort(Numbers);
+		System.out.println("입력한 배열값은 " + Arrays.toString(Numbers));
+		//여기서부터 소팅로직 시작
+		for(prev=0;prev<(n-1);prev++) { //예, 5개 숫자를 입력하면, 4번 반복합니다. 
+			//n-1번만 이유는 4번째 이후 비교할 다음변수가 있기 때문에
+			for(next=(prev+1);next<n;next++) {
+				if(Numbers[prev] > Numbers[next]) {//이전변수값이 더 크다면, 앞 뒤 변수값을 자리 바꿈합니다.
+					//위 부등호만 바꾸면, > 오름차순, < 내림차순
+					Temp = Numbers[prev];//이전변수값이 저장
+					Numbers[prev] = Numbers[next];
+					Numbers[next] = Temp;
+				}
+			}
+		}
+		//자리바꿈결과를 출력하는 구문, Arrays유틸클래스 사용하지 않고, for문사용
+		//인덱스 개수 5개 , 0부터시작하기 때문에 4까지가 인덱스 번호의 끝
+		for(int i=0;i<n;i++) {
+			System.out.print(Numbers[i]+ " ");
+		}
+	}
+}
+```
+
+- 스위치 변수 사용 코딩 테스트01소스(아래)
+
+```
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));//문자열을 입력하는 커서가 발생
+		int UNIT = 50000;//화폐의 최고단위 금액, 초기 화폐 단위 초기화
+		int NUM = 0;//(입력금액 나누기 단위금액) = 단위금액의 화폐 매수 변수 초기화
+		int SW = 0;//스위치(on/off)변수 = 플래그(깃발)변수 초기화
+		int MONEY = Integer.parseInt(br.readLine());
+		while(true) {//IoT쪽에서는 while(true)문으로 외부 데이터를 읽어 들입니다.
+			if(UNIT>=1) {
+				NUM = (int) MONEY/UNIT;//화페매수는 0.5매수는 없기 때문에 정수로 형변환
+				System.out.println(UNIT+"원의 화폐매수는"+NUM);
+				//다음반복을 위해서 MONEY변수 값 조정, UNIT변수값 조정
+				MONEY = MONEY-(UNIT*NUM);//277777-250000=25000(1회전 결과)
+				if(SW==0) {
+					UNIT = UNIT/5;//5만원->1만원으로 단위 변경(1회전결과, 3회전, 5회전)
+					SW = 1;//1회전 후 SW스위치변수값을 1로 변경
+				}else{
+					UNIT = UNIT/2;//1만원->5천원으로 단위 변경(2회전결과, 4회전, 6회전)
+					SW = 0;//2회전 후 SW스위치 변수값을 0으로 변경
+				}
+			}else {
+				break;//while반복문을 빠져나갑니다. 무한 반복을 벗어나는 코드
+			}
+			
+		}
+		
+	}
+}
+```
+- 빅O 시간 복잡도 구하기: for문을 1개면, Big O(N)번 횟수, 
+- 중복 for문이면, Big O(N^2)
+- for(i=1, i==3, i++) { for(i=1,i==3,i++ {구현로직 } }
+- 위 중복 for문은 시간복잡도가 O(N^2)번 횟수
+- 프로그램의 성능을 측정하는 단위 빅O 표기법을 사용합니다.
+- 화폐 매수 구하기: 277,777원 입금 금액이 있다면,
+- 5만원짜리 지폐는 몇장인지, = 5장
+- 1만원짜리 지폐는 몇장인지, = 2장
+- 5천원짜리 지폐는 몇장인지, = 1장
+- 1천원짜리 지폐는 몇장인지, = 2장
+- 5백원짜리 동전은 몇개인지, = 1개
+- 1백원짜리 동전은 몇개인지, = 1개
+- 50원짜리 동전은 몇개인지, = 1개
+- 10원,5원,1원                 = 2개, 1개, 2개
+- 화폐 단위가 5만원 부터 시작해서 입력 금액/UNIT 1회 반복할때마다 UNIT변경
+- 화폐단위 (UNIT)변수가 바뀌는 순서 로직(아래)
+- SW=0 : 5만원, 5천원, 500원, 50원, 5원 = UNIT/5
+- SW=1 : 1만원, 1천원, 100원, 10원, 1원 = UNIT/2 끝(0.5원 화폐단위X)
 - 알고리즘 다이어그램기반으로 자바코딩테스트.
 
 #### 20210716(금) 작업.
