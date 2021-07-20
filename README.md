@@ -23,18 +23,12 @@
 - 헤로쿠 클라우드에 배포할때, 매퍼폴더의 mysql폴더내의 쿼리에 now()를 date_add(now(3), interval 9 HOUR) 변경예정.(이유는 DB서버 타임존 미국이기 때문에)
 - 알고리즘 다이어그램기반으로 자바 코딩테스트 작업 10개 문제.
 
-#### 앞으로 남은 1주일간 작업예정내용 정리.
-- 사용자단 메인페이지(대시보드) 작업예정.
-- 사용자단 네이버아이디로그인 처리(10.외부RestAPI구현).
-- 관리자대시보드에서 회원ID 이미지업로드 및 보이기 처리예정.(기술참조 https://github.com/miniplugin/kimilguk )
-- jsp템플릿인 tiles(타일즈), siteMesh(사이트메쉬), velocity(벨로시티) 등이 있습니다.
-- 현업에서는 위 3가지 템플릿중 1가지는 항상 사용하기 때문에 대표적으로 타일즈를 실습할 예정입니다.
-- 위 3가지 구조는 비슷하기 때문에 1가지만 아셔도 다른 jsp템플릿 적용시 응용가능합니다.
-- 알고리즘 다이어그램기반으로 자바코딩테스트예정(깃 it강의저장소자료이용).
-
 #### 데이터의 이동
 - VO클래스의 이동: 매퍼쿼리 <-> DAO(M) <-> Service <-> Controller(C) <-> jsp(V)
 
+#### 변수값(데이터) ReplyVO데이터 클래스를 기준으로
+- JSON데이터: 크롬에서 부메랑으로 List<ReplyVO>형태의 데이터 확인
+- JSON데이터 구조: ArrayList(표) + HashMap(Key:Value)
 ```
 {
     "rno": 5,
@@ -61,10 +55,6 @@
     "bno": 2
 },
 ```
-
-#### 변수값(데이터) ReplyVO데이터 클래스를 기준으로
-- JSON데이터: 크롬에서 부메랑으로 List<ReplyVO>형태의 데이터 확인
-- JSON데이터 구조: ArrayList(표) + HashMap(Key:Value)
 - ArrayList 클래스형 데이터: List<ReplyVO> replyList = new ArrayList<ReplyVO>();//DB쿼리 결과
 - 위 ArrayList구조: List(인터페이스) > ArrayList(임플리먼트클래스-데이터클래스)
 - HashMap 클래스형 데이터 : Map<String, Object> mapData = new HashMap<Strnig, Object>();
