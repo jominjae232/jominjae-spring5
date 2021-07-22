@@ -62,9 +62,32 @@ public class Hello {
 		System.out.println("프로그램 종료");
 		*/
 		
+		/*
+		Scanner sc = new Scanner(System.in);
+		String str = sc.nextLine();
+		switch (str) {
+		case "a"
+		case "A":
+			System.out.println("Apply");
+			break;
 		
-		
-		
+		case "b"
+		case "B":
+			System.out.println("Banana");
+			break;
+		case "w"
+		case "W":
+			System.out.println("Watermelon");
+			break;
+		case "s"
+		case "S":
+			System.out.println("Strawberry");
+			break;
+		default:
+			System.out.println("모르는 이니셜");
+		}
+		System.out.println("프로그램 종료");
+		*/
 		
 		
 		
