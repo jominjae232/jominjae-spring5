@@ -287,16 +287,15 @@ public class Hello {
 		/*
 		 int first = 1; 
          int second = 1;
-         int third = 0;             
-         System.out.println(first);
-         System.out.println(second);
+         int third = 0;
          for (int i = 0; i < 18; i++) {
                third = first + second;           
                System.out.println(third);
                first = second; 
                second = third; 
          }
-         */
+		*/
+		
 		
          
 	//소수: 1과 자기자신으로 밖에는 나눠지지 않는 수
@@ -306,9 +305,7 @@ public class Hello {
 	// 2부터 10000까지의 사이에 있는 모든 소수를 구하는 프로그램
 		int i=0;
         for(int n=2; n<=10000; n++) {
-            for(int j=2; j<=n; j++) {
-            	//break로 나왔으면, 소수가 아님
-            	//break로 나오지 않고, for문이 모두 실행됐으면, 소수
+            for(int j=2; j<=n; j++) {          
                  if(n%j ==0) {
                       i++;
                  }    
