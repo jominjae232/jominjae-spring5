@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.Scanner;
 
 import javax.swing.text.AbstractDocument.BranchElement;
@@ -217,6 +218,130 @@ public class Hello {
 			}while(!n.equals("x"));
 			System.out.println("프로그램 종료");
 	      */
+		
+		/*
+		//100이하의 홀수를 출력하는 for문
+		System.out.println("이 프로그램은 100이하의 홀수를 출력합니다.");
+		for(int i=1;i<=100;i++) {
+			if(i%2==1)
+			System.out.println(i);
+		}
+		System.out.println("프로그램이 종료 되었습니다.");
+		*/
+		
+		
+		/*
+		//for문 안에 for문을 넣어서, 구구단을 2단부터 9단까지 출력
+		System.out.println("이 프로그램은 구구단 2~9단 까지 출력합니다.");
+		for(int n=2;n<=9;n++){
+			for(int i=1; i<=9;i++) {
+			System.out.println(n+"x"+i+"="+(n*i));
+			}
+		}
+		System.out.println("프로그램이 종료 되었습니다.");
+		*/
+		
+		
+		/*
+		for(int i=0;i<100;i++) {
+			if(i>50) {
+				System.out.println(i+"continue");
+				continue;
+			}
+			System.out.println(i);
+		}
+		*/
+		
+		
+		/*
+		// Snake
+		//1   2   3   4
+		//8   7   6   5
+		//9   10  11  12
+		//16  15  14  13
+		System.out.println("이 프로그램은 ㄹ자 순서로 숫자를 출력합니다.");
+		Scanner sc = new Scanner(System.in);
+        System.out.println("크기를 입력해주세요.");
+        int n = sc.nextInt();
+		  int r = 0;
+		  int s;
+		  int c = 1;
+		  for (int i = 0; i < n; i++) {
+		    s = n;
+		    for (int j = 0; j < n; j++) {
+		      if (r % 2 == 0) {	
+		        System.out.printf("%3d ", c);
+		      } else if (r % 2 != 0) {
+		        System.out.printf("%3d ", c + (s - 1));
+		        s = s - 2;
+		      }
+		        c++;
+		    }
+		    r++;
+		    System.out.println("\n");
+		  }
+		  System.out.println("프로그램이 종료 되었습니다.");
+			*/
+		
+		
+		/*
+		 int first = 1; 
+         int second = 1;
+         int third = 0;             
+         System.out.println(first);
+         System.out.println(second);
+         for (int i = 0; i < 18; i++) {
+               third = first + second;           
+               System.out.println(third);
+               first = second; 
+               second = third; 
+         }
+         */
+		
+         
+	//소수: 1과 자기자신으로 밖에는 나눠지지 않는 수
+	// N이라는 숫자가 있으면
+	//2부터 N-1까지 숫자로 N을 나눈다.
+	// 예, 51이 소수인가?No. 2, %3==0 17
+	// 2부터 10000까지의 사이에 있는 모든 소수를 구하는 프로그램
+		int i=0;
+
+        for(int n=2; n<=10000; n++) {
+            for(int j=2; j<=n; j++) {
+            	//break로 나왔으면, 소수가 아님
+            	//break로 나오지 않고, for문이 모두 실행됐으면, 소수
+                 if(n%j ==0) {
+                      i++;
+                 }    
+            } if(i==1) {
+                 System.out.println(n);
+            }
+            i=0;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 	}
 }
-	       
+ 
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+        	
+
