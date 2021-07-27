@@ -298,26 +298,119 @@ public class Hello {
 		
 		
          
-	//소수: 1과 자기자신으로 밖에는 나눠지지 않는 수
-	// N이라는 숫자가 있으면
-	//2부터 N-1까지 숫자로 N을 나눈다.
-	// 예, 51이 소수인가?No. 2, %3==0 17
-	// 2부터 10000까지의 사이에 있는 모든 소수를 구하는 프로그램
-		int i=0;
-        for(int n=2; n<=10000; n++) {
-            for(int j=2; j<=n; j++) {          
-                 if(n%j ==0) {
-                      i++;
-                 }    
-            } if(i==1) {
-                 System.out.println(n);
-            }
-            i=0;
-        }
+		/*
+	      // 소수: 1과 자기자신으로 밖에는 나눠지지 않는 수
+	      // N이라는 숫자가 있으면
+	      // 2부터 N-1까지 숫자로 N을 나눈다.
+	      // 예, 51이 소수인가?No. 2, %3==0 17
+	      // 2부터 10000까지의 사이에 있는 모든 소수를 구하는 프로그램
+	      System.out.println("이 프로그램은 입력 받은 수의 최대 소수까지를 출력합니다.");
+	      Scanner sc = new Scanner(System.in);
+	      System.out.println("숫자를 입력해주세요.");
+	      int sci = sc.nextInt();
+	         int i=0;
+	           for(int n=2; n<=sci; n++) {
+	               for(int j=2; j<=n; j++) {
+	                    if(n%j ==0) {
+	                         i++;
+	                    }
+	               }
+	               if(i==1) {
+	                    System.out.println(sci+"에 해당하는 소수는 "+n+"입니다.");
+	               }
+	               i=0;
+	           }
+	          System.out.println("프로그램이 종료 되었습니다.");
+	          */
+		
+		/*
+		// 12 24 숫자 두개
+	      // 12: 2, 3, 4, 6, 12
+	      // 24: 2, 3, 4, 6, 8, 12, 24
+	      // 최소 공배수(두수의 공통배수 중 가장 작은 수), => 24
+	      // 최대 공약수(두수의 약수 중 가장 큰 수) => 6
+	      // 양의 정수 2개를 순서대로 입력 받는다.
+	      // 최소 공배수 최대공약수를 구한다.
+	      // 출력
+	      // 최소공배수는 하나만 나옵니다..최대공약수도 마찬가지..
+	        // 그리고 최대공약수가 두 숫자보다 작거나 같고
+	        // 최소공배수는 두숫자보다 크거나 같아요..
+	      int Num1;
+	      int Num2;
+	      int m=0;
+	      int h=0;
+	      int i=2;
+	      Scanner sc1 = new Scanner(System.in);
+	      System.out.println("첫번째 숫자를 입력해주세요");
+	      Num1 = sc1.nextInt();
+	      Scanner sc2 = new Scanner(System.in);
+	      System.out.println("두번째 숫자를 입력해주세요.");
+	      Num2= sc2.nextInt();
+	      for(int q = 1; q<=Num1; q++) {
+	         for(int i2 = 1; i2<=Num2; i2++) {
+	         if(Num1%q==0 && Num2%q==0)
+	            h=q;
+	         q++;
+	         }
+	      m=Num1*Num2/h;
+	      System.out.println("최대 공약수는 "+h+"입니다.");
+	      System.out.println("최소 공배수 "+m+"입니다.");
+	      }
+	   }
+	}
+        */
         
         
-        
-        
+		/*
+	      //1부터 100까지 출력
+	      int a = 0;
+	      for (int i = 1; i<=100; i++) {
+	         a = a + i;
+	      }
+	      System.out.println("1부터 100까지의 합은 "+a+"입니다.");
+	   }
+	}
+	*/
+		
+		/*
+	      // 팩토리얼 (n!)
+	      // 4! = 4x3x2x1 = 24
+	      // 10! = 10x9x8x7x6x5x4x3x2x1
+	      // 양의 정수를 입력 받는다. 단, 10이하의 숫자
+	      // 팩토리얼을 계산하는 프로그램.
+	      int a = 1;
+	      for (int i = 1; i<=5; i++) {
+	         a = a * i;
+	      }
+	      System.out.println("해당 값의 팩토리얼은"+a+"입니다.");
+	   }
+	      */
+		
+		/*
+	      ArrayList<String> studentName = new ArrayList<String>();
+	      studentName.add("John");   //생성
+	      studentName.add("Jane");
+	      studentName.add("Jacob");
+	      studentName.add("Johanson");
+	      studentName.add("Jason");
+	      studentName.add("James");
+	      for(int i = 0; i < studentName.size(); i++) {
+	         System.out.println(studentName.get(i));  //조회
+	      }
+	      System.out.println("\n\n\n");
+	      studentName.set(3, "Jefferson");  //수정(replace)
+	      for(int i = 0; i < studentName.size(); i++) {
+	         System.out.println(studentName.get(i));  //조회
+	      }
+	      studentName.remove(3); // by index
+	      studentName.remove("Jason"); //by Value
+	      //delete data and reduce the length
+	      studentName.clear(); //delete all
+	      // method(메소드) get, add, set, size, remove, clear ...
+	      */
+		
+		
+		
         
         
         
