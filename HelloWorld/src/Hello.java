@@ -1,4 +1,5 @@
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.text.AbstractDocument.BranchElement;
@@ -409,28 +410,133 @@ public class Hello {
 	      // method(메소드) get, add, set, size, remove, clear ...
 	      */
 		
+		// 사용자 입력 읽어 들이기
+		// 입력값이 'x'가 아닌 동안
+		// 값이 'm':메뉴리스트
+		// 값이 'o':주문
+		// 값이 's':실적
+		// ArrayList/Scanner이용
+		// 학생들의 수학 점수를 읽어 들이는 프로그램
+		// -1이 들어올때까지 ArrayList에 입력값이 채워지면서 늘어난다.
+		// 읽어 들이기가 끝나면,
+		// (1) 모든 학생의 점수를 출력
+		// (2) 점수의 총합계, 평균 점수를 계산해서 출력
 		
-		
-        
-        
-        
-        
-        
-        
-        
+		/*
+		Scanner sc = new Scanner(System.in);
+		System.out.println("숫자열을 입력해주세요.");
+		String str = sc.nextLine();
+		Integer.parseInt(str);
+		String[] result = new String[str.length()];
+		int total=0;
+		int num=0;
+		for(int i=0; i<str.length(); i++) {
+			result[i] = str.substring(i, i+1);
+			total += Integer.parseInt(result[i]);
+			num = total / result.length;
+		}
+		System.out.println("입력받은 숫자의 값은 ["+str+"]입니다.");
+		System.out.println("합계는 "+total+"입니다.");
+		System.out.println("평균은 "+num+"입니다.");
 	}
 }
- 
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-        	
-
+		*/
+		
+		
+		/*
+		ArrayList<Integer> point = new ArrayList<Integer>();
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		while(n!=-1) {
+			point.add(n);
+			
+			n=sc.nextInt();
+		}
+		//입력된 점수를 출력
+		for(int i = 0; i < point.size(); i++) {
+			System.out.println(point.get(i));
+		}
+		int sum=0;
+		for(int j = 0; j < point.size(); j++) {
+			sum = sum + point.get(j);
+		}
+		System.out.println("합계는 ["+sum+"]입니다.");
+		System.out.println("평균은 ["+(sum/point.size())+"]입니다.");
+	}
+}
+	*/
+		
+		
+		
+		/*
+		int n;
+		n=12;
+		Week Weekdays;
+		Weekdays=Week.WEDNESDAY;
+		System.out.println(Weekdays);
+		*/
+		
+		
+		/*
+		for(int i=2;i<10;i++) {
+			show(i); // 함수호출
+			System.out.println("");
+		}
+	}
+	// 함수(메서드) 선언(정의)
+	// 변수 명명 규칙 (1) $,_,알파벳으로만 시작
+	// (2) 두번째 문자부터는 $,_,알파벳,숫자 사용가능 
+	// (3) 자바 키워드는 변수로 사용할 수 없다.
+	public static void show(int i) {
+		for(int j=1;j<10;j++) {
+			System.out.println(i+"x"+j+"="+(i*j));
+		}
+	}
+}
+*/
+		/*
+		함수
+		(1) 함수 선언
+		(2) 함수 호출 => 함수를 실행시킨다.
+		
+		function(함수)==method(메소드)
+		변수 명명 규칙과 같다.
+		
+		반환값의 타입 함수명(전달되는 변수/매개변수/파라미터/arguments) {
+			실행코드(들)
+		}
+		show(10);//반환값이 없는 함수 호출
+		
+		void show(int x) {
+			for()
+			if()
+			...
+		}
+		
+		int x;
+		...
+		x = outprint(10,0);//반환값이 있는 함수 호출
+		
+		반환값의 타입이 정수 (int)인 함수 outprint
+		전달 받는 값의 실수(float)인 경우
+		int outprint(float x){
+		.....
+		return m;
+		}
+		*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+}
