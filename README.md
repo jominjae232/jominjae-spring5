@@ -1,3 +1,4 @@
+coffesho 폴더, Vehicle 폴더 Automobile
 #### 자바 수업
 변수선언
 변수타입(int,String,float)
