@@ -55,27 +55,39 @@ public class Menu { //선언(정의) only. not Run code
    void addPrice(String price) {
 	   this.alPrice.add(Integer.parseInt(price));
    }
-   void appenMenu() {
-	// 새 메뉴명 읽기
-	   Scanner sc = new Scanner(System.in);
+   String getName(int menu_num) {
+	   return this.alName.get(menu_num-1);
+   }
+   int getPrice(int menu_num) {
+	   return this.alPrice.get(menu_num-1);
+   }
+   void appendMenu() {
+	   	// 새 메뉴명 읽기
+	   	@SuppressWarnings("resource")
+	   	Scanner sc = new Scanner(System.in);
+		@SuppressWarnings("resource")
 		Scanner sc1 = new Scanner(System.in);
-	   System.out.println("메뉴명을 입력해주세요");
-	   String strM1 = sc.nextLine();
-	   // 새 가격 읽기
-	   System.out.println("메뉴 가격을 입력해주세요.");
-	   int strP = sc1.nextInt();
-	   // 메뉴명 추가
-	   addName(strM1);
-	   // 메뉴 가격 추가.
-	   addPrice(strP);
+		System.out.println("메뉴명을 입력해주세요");
+		String strM1 = sc.nextLine();
+		// 새 가격 읽기
+		System.out.println("메뉴 가격을 입력해주세요.");
+		int strP = sc1.nextInt();
+		// 메뉴명 추가
+		addName(strM1);
+		// 메뉴 가격 추가.
+		addPrice(strP);
+		System.out.println(strM1+" 메뉴가 추가 되었습니다.");
    }
    void showMenu() {
       for(int Num = 0; Num < this.alName.size(); Num++)
          System.out.println((Num+1)+"\t"+this.alName.get(Num)+"\t"+this.alPrice.get(Num));
    }
    void changeMenu() {
-	    Scanner sc = new Scanner(System.in);
+	    @SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+		@SuppressWarnings("resource")
 		Scanner sc1 = new Scanner(System.in);
+		@SuppressWarnings("resource")
 		Scanner sc2 = new Scanner(System.in);
 		// 수정 할 메뉴 번호 읽기
 		System.out.println("수정하고 싶은 메뉴 번호를 입력해주세요.");
@@ -90,9 +102,11 @@ public class Menu { //선언(정의) only. not Run code
 		System.out.println("수정될 가격을 입력해주세요.");
 	    int price = sc2.nextInt();
 	    this.alPrice.set(menu_num, price);
+	    System.out.println(x+"번 메뉴가 수정되었습니다.");
 	   }
    void deleteMenu() {
 	   // 삭제할 메뉴 번호 읽기
+	   @SuppressWarnings("resource")
 	   Scanner sc1 = new Scanner(System.in);
 	   System.out.println("삭제할 목록의 번호를 입력해주세요");
 	   int x = sc1.nextInt();
@@ -144,6 +158,5 @@ public class Menu { //선언(정의) only. not Run code
 				e.printStackTrace();
 			}
 		}
-
    	}
 }
